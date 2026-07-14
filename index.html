@@ -1,0 +1,875 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#101513">
+  <meta name="description" content="Rota progressiva de Palworld 1.0, do novo save ao World Tree, com bases, Pals, recursos, tecnologia, torres e checklist persistente.">
+  <title>Atlas de Palpagos | Guia Palworld 1.0</title>
+  <style>
+    :root {
+      --bg: #101513;
+      --bg-deep: #0b0f0e;
+      --surface: #171e1b;
+      --surface-2: #1d2622;
+      --line: rgba(225, 233, 224, .14);
+      --line-strong: rgba(225, 233, 224, .26);
+      --text: #edf1eb;
+      --muted: #a8b2aa;
+      --accent: #d8a64b;
+      --accent-soft: rgba(216, 166, 75, .14);
+      --danger: #d4816c;
+      --success: #83ad86;
+      --cyan: #7fa9a6;
+      --radius: 18px;
+      --shadow: 0 24px 70px rgba(2, 7, 5, .28);
+      --max: 1380px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 76% 8%, rgba(77, 116, 100, .13), transparent 32rem),
+        linear-gradient(180deg, var(--bg-deep), var(--bg) 32rem);
+      font-family: "Avenir Next", Avenir, "Segoe UI", system-ui, sans-serif;
+      line-height: 1.62;
+      min-width: 320px;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      pointer-events: none;
+      opacity: .035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.86' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+    }
+
+    a { color: inherit; }
+    button, input { font: inherit; }
+    button { color: inherit; }
+    img { display: block; max-width: 100%; }
+    svg { width: 1.15em; height: 1.15em; flex: 0 0 auto; }
+
+    .skip-link {
+      position: fixed;
+      left: 16px;
+      top: -80px;
+      z-index: 100;
+      padding: 12px 16px;
+      color: var(--bg);
+      background: var(--accent);
+      border-radius: 10px;
+    }
+    .skip-link:focus { top: 16px; }
+
+    .shell { width: min(calc(100% - 40px), var(--max)); margin-inline: auto; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 18;
+      border-bottom: 1px solid var(--line);
+      background: rgba(11, 15, 14, .82);
+      backdrop-filter: blur(18px) saturate(120%);
+      box-shadow: inset 0 1px rgba(255,255,255,.04);
+    }
+    .topbar-inner {
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; margin-right: auto; text-decoration: none; }
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line-strong);
+      border-radius: 11px;
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+    .brand strong { display: block; font-size: .92rem; letter-spacing: .02em; }
+    .brand small { display: block; color: var(--muted); font-size: .69rem; letter-spacing: .12em; text-transform: uppercase; }
+    .nav { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+    .nav::-webkit-scrollbar { display: none; }
+    .nav a {
+      padding: 9px 11px;
+      color: var(--muted);
+      border-radius: 9px;
+      font-size: .78rem;
+      letter-spacing: .04em;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color .22s ease, background .22s ease, transform .22s ease;
+    }
+    .nav a:hover, .nav a:focus-visible { color: var(--text); background: rgba(255,255,255,.055); }
+    .nav a:active, .button:active, .filter:active { transform: translateY(1px); }
+    .progress-track { height: 2px; background: transparent; }
+    .progress-line { height: 100%; width: 0; background: var(--accent); transition: width .12s linear; }
+
+    .hero { position: relative; min-height: min(760px, calc(100dvh - 70px)); overflow: hidden; border-bottom: 1px solid var(--line); }
+    .hero-media { position: absolute; inset: 0; }
+    .hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: 58% center; }
+    .hero-media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(9, 13, 12, .96) 0%, rgba(9, 13, 12, .78) 34%, rgba(9, 13, 12, .12) 71%),
+        linear-gradient(0deg, var(--bg-deep), transparent 34%);
+    }
+    .hero-grid { position: relative; z-index: 2; min-height: inherit; display: grid; grid-template-columns: minmax(0, .9fr) minmax(460px, 1.1fr); align-items: center; }
+    .hero-copy { max-width: 660px; padding: 82px 0 104px; }
+    .eyebrow { display: flex; align-items: center; gap: 10px; color: var(--accent); font-size: .76rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 34px; height: 1px; background: currentColor; }
+    h1, h2, h3 { text-wrap: balance; }
+    h1 { max-width: 11ch; margin: 22px 0 22px; font-size: clamp(3.25rem, 7.8vw, 7.5rem); line-height: .86; letter-spacing: -.066em; font-weight: 680; }
+    .hero-lead { max-width: 56ch; margin: 0 0 30px; color: #cbd2cc; font-size: clamp(1rem, 1.45vw, 1.18rem); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 46px;
+      padding: 0 17px;
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      color: var(--text);
+      background: rgba(15, 21, 18, .66);
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform .22s ease, border-color .22s ease, background .22s ease;
+    }
+    .button.primary { color: #17130b; border-color: var(--accent); background: var(--accent); font-weight: 700; }
+    .button:hover, .button:focus-visible { border-color: var(--accent); }
+    .hero-meta { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; max-width: 610px; margin-top: 44px; border: 1px solid var(--line); background: var(--line); }
+    .hero-stat { padding: 16px 17px; background: rgba(14, 19, 17, .7); backdrop-filter: blur(10px); }
+    .hero-stat strong { display: block; font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; font-size: 1.26rem; }
+    .hero-stat span { color: var(--muted); font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; }
+
+    main { overflow: clip; }
+    section { padding: 110px 0; border-bottom: 1px solid var(--line); }
+    .section-head { display: grid; grid-template-columns: .58fr 1.42fr; gap: 70px; align-items: start; margin-bottom: 54px; }
+    .section-index { color: var(--accent); font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; font-size: .78rem; letter-spacing: .1em; }
+    .section-head h2 { margin: 0; font-size: clamp(2.3rem, 4.5vw, 4.7rem); line-height: .98; letter-spacing: -.05em; font-weight: 620; }
+    .section-intro { max-width: 66ch; margin: 18px 0 0; color: var(--muted); }
+
+    .signal-grid { display: grid; grid-template-columns: 1.45fr .8fr; gap: 24px; }
+    .briefing { padding: 34px; border: 1px solid var(--line); border-radius: var(--radius); background: linear-gradient(145deg, rgba(31,42,36,.8), rgba(19,26,23,.75)); box-shadow: var(--shadow), inset 0 1px rgba(255,255,255,.04); }
+    .briefing h3 { margin: 0 0 12px; font-size: 1.45rem; }
+    .briefing p { color: var(--muted); }
+    .principles { display: grid; gap: 1px; margin-top: 26px; border-top: 1px solid var(--line); background: var(--line); }
+    .principle { display: grid; grid-template-columns: 44px 1fr; gap: 15px; padding: 17px 0; background: var(--surface); }
+    .principle:first-child { padding-top: 22px; }
+    .icon-box { width: 38px; height: 38px; display: grid; place-items: center; color: var(--accent); border: 1px solid var(--line); border-radius: 11px; background: var(--accent-soft); }
+    .principle strong { display: block; margin-bottom: 2px; }
+    .principle span { color: var(--muted); font-size: .91rem; }
+
+    .status-panel { display: grid; align-content: start; gap: 14px; }
+    .status-card { padding: 22px; border-top: 1px solid var(--line-strong); background: rgba(255,255,255,.02); }
+    .status-card .label { color: var(--muted); font-size: .73rem; letter-spacing: .08em; text-transform: uppercase; }
+    .status-card strong { display: block; margin-top: 7px; font-size: 1.05rem; }
+    .status-card p { margin: 7px 0 0; color: var(--muted); font-size: .88rem; }
+    .notice { padding: 17px 18px; border-left: 3px solid var(--accent); color: #d8ded8; background: var(--accent-soft); }
+    .notice strong { color: var(--accent); }
+
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 30px; }
+    .filter { padding: 9px 14px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: transparent; cursor: pointer; transition: .22s ease; }
+    .filter:hover, .filter:focus-visible, .filter.active { color: var(--bg); border-color: var(--accent); background: var(--accent); }
+
+    .route { position: relative; display: grid; gap: 22px; }
+    .route::before { content: ""; position: absolute; left: 35px; top: 52px; bottom: 52px; width: 1px; background: linear-gradient(var(--accent), var(--line)); }
+    .stage { position: relative; display: grid; grid-template-columns: 70px 1fr; gap: 24px; }
+    .stage[hidden] { display: none; }
+    .stage-marker { position: sticky; top: 100px; width: 70px; height: 70px; display: grid; place-items: center; z-index: 2; border: 1px solid var(--line-strong); border-radius: 50%; color: var(--accent); background: var(--bg); font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; font-size: 1rem; }
+    .stage-card { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(24,32,28,.72); box-shadow: inset 0 1px rgba(255,255,255,.035); }
+    .stage-header { display: grid; grid-template-columns: 1fr auto; gap: 24px; padding: 28px 30px 22px; border-bottom: 1px solid var(--line); }
+    .stage-kicker { color: var(--accent); font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; }
+    .stage h3 { margin: 7px 0 0; font-size: clamp(1.55rem, 3vw, 2.45rem); line-height: 1.03; letter-spacing: -.035em; }
+    .tower-chip { align-self: center; padding: 9px 12px; border: 1px solid var(--line); border-radius: 10px; color: var(--muted); font-size: .78rem; text-align: right; }
+    .tower-chip strong { display: block; color: var(--text); font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; }
+    .stage-body { display: grid; grid-template-columns: 1.35fr .8fr; gap: 0; }
+    .stage-main { padding: 30px; }
+    .stage-side { padding: 30px; border-left: 1px solid var(--line); background: rgba(255,255,255,.018); }
+    .stage-main > p { margin-top: 0; color: var(--muted); }
+    .step-list { counter-reset: steps; display: grid; gap: 12px; margin: 25px 0 0; padding: 0; list-style: none; }
+    .step-list li { counter-increment: steps; display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; }
+    .step-list li::before { content: counter(steps, decimal-leading-zero); color: var(--accent); font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; font-size: .73rem; padding-top: 3px; }
+    .step-list strong { color: var(--text); }
+    .step-list span { color: var(--muted); }
+    .mini-title { margin: 0 0 12px; color: var(--accent); font-size: .72rem; letter-spacing: .11em; text-transform: uppercase; }
+    .target-list { display: grid; gap: 11px; margin: 0 0 26px; padding: 0; list-style: none; }
+    .target-list li { display: grid; grid-template-columns: 18px 1fr; gap: 9px; color: var(--muted); font-size: .9rem; }
+    .target-list svg { margin-top: .25em; color: var(--success); }
+    .ready { padding-top: 18px; border-top: 1px solid var(--line); }
+    .ready strong { display: block; margin-bottom: 5px; }
+    .ready p { margin: 0; color: var(--muted); font-size: .9rem; }
+
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); }
+    table { width: 100%; border-collapse: collapse; min-width: 760px; }
+    th, td { padding: 16px 18px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+    th { color: var(--accent); background: rgba(255,255,255,.025); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; }
+    td { color: var(--muted); font-size: .91rem; }
+    td strong { color: var(--text); }
+    tr:last-child td { border-bottom: 0; }
+    .mono { font-family: ui-monospace, "SFMono-Regular", Consolas, monospace; }
+
+    .base-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 24px; margin-bottom: 34px; }
+    .base-map { position: relative; min-height: 520px; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: linear-gradient(145deg, #19241f, #101714); }
+    .base-map::before { content: ""; position: absolute; inset: 0; opacity: .16; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 42px 42px; }
+    .base-core { position: absolute; left: 50%; top: 50%; width: 320px; aspect-ratio: 1; transform: translate(-50%,-50%); border: 1px dashed rgba(216,166,75,.6); border-radius: 50%; }
+    .base-core::after { content: "PALBOX"; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); display: grid; place-items: center; width: 84px; aspect-ratio: 1; border: 1px solid var(--accent); border-radius: 50%; color: var(--accent); background: var(--accent-soft); font: 700 .7rem ui-monospace, monospace; letter-spacing: .08em; }
+    .zone { position: absolute; width: 128px; min-height: 72px; padding: 12px; display: grid; place-items: center; text-align: center; border: 1px solid var(--line); border-radius: 13px; background: rgba(22,30,26,.92); box-shadow: var(--shadow); font-size: .76rem; }
+    .zone strong { display: block; color: var(--text); }
+    .zone span { color: var(--muted); font-size: .69rem; }
+    .z1 { left: 7%; top: 12%; } .z2 { right: 7%; top: 12%; } .z3 { left: 7%; bottom: 12%; } .z4 { right: 7%; bottom: 12%; }
+    .base-notes { display: grid; align-content: start; gap: 1px; border-top: 1px solid var(--line); background: var(--line); }
+    .base-note { padding: 22px; background: var(--surface); }
+    .base-note strong { display: flex; align-items: center; gap: 9px; }
+    .base-note strong svg { color: var(--accent); }
+    .base-note p { margin: 7px 0 0; color: var(--muted); font-size: .89rem; }
+
+    .atlas-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .atlas-card { position: relative; padding: 22px; border-top: 1px solid var(--line-strong); background: rgba(255,255,255,.018); }
+    .atlas-card[hidden] { display: none; }
+    .atlas-icon { width: 42px; height: 42px; display: grid; place-items: center; margin-bottom: 19px; color: var(--accent); border: 1px solid var(--line); border-radius: 12px; background: var(--accent-soft); }
+    .atlas-card h3 { margin: 0; font-size: 1.12rem; }
+    .atlas-card p { margin: 7px 0 0; color: var(--muted); font-size: .89rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+    .tag { padding: 4px 8px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; font-size: .68rem; letter-spacing: .05em; text-transform: uppercase; }
+
+    .check-shell { display: grid; grid-template-columns: .7fr 1.3fr; gap: 34px; }
+    .check-summary { position: sticky; top: 100px; align-self: start; padding: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+    .score { margin: 18px 0; font: 600 clamp(3.3rem, 8vw, 6.2rem)/.9 ui-monospace, monospace; letter-spacing: -.08em; }
+    .score small { color: var(--muted); font-size: .25em; letter-spacing: 0; }
+    .score-bar { height: 8px; overflow: hidden; border-radius: 99px; background: rgba(255,255,255,.08); }
+    .score-fill { height: 100%; width: 0; background: var(--accent); transition: width .4s cubic-bezier(.16,1,.3,1); }
+    .check-summary p { color: var(--muted); font-size: .88rem; }
+    .check-groups { display: grid; gap: 26px; }
+    .check-group { border-top: 1px solid var(--line-strong); padding-top: 18px; }
+    .check-group h3 { margin: 0 0 12px; font-size: 1rem; }
+    .check-item { display: grid; grid-template-columns: 24px 1fr; gap: 11px; align-items: start; padding: 11px 0; color: var(--muted); cursor: pointer; }
+    .check-item input { appearance: none; width: 19px; height: 19px; margin: 2px 0 0; border: 1px solid var(--line-strong); border-radius: 5px; background: transparent; cursor: pointer; }
+    .check-item input:checked { border-color: var(--accent); background: var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23101311' stroke-width='3'%3E%3Cpath d='m5 12 4 4L19 6'/%3E%3C/svg%3E") center/14px no-repeat; }
+    .check-item:has(input:checked) span { color: #667169; text-decoration: line-through; }
+
+    details { border-top: 1px solid var(--line); }
+    summary { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 20px 0; cursor: pointer; font-weight: 650; list-style: none; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; color: var(--accent); font: 400 1.35rem ui-monospace, monospace; }
+    details[open] summary::after { content: "-"; }
+    .details-body { padding: 0 0 22px; color: var(--muted); }
+
+    .source-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .source { display: block; padding: 22px; border: 1px solid var(--line); border-radius: 14px; text-decoration: none; transition: .22s ease; }
+    .source:hover, .source:focus-visible { border-color: var(--accent); transform: translateY(-2px); }
+    .source strong { display: block; }
+    .source span { display: block; margin-top: 5px; color: var(--muted); font-size: .84rem; }
+
+    footer { padding: 48px 0 70px; color: var(--muted); }
+    .footer-inner { display: flex; justify-content: space-between; gap: 30px; padding-top: 22px; border-top: 1px solid var(--line); font-size: .83rem; }
+
+    .reveal { opacity: 1; transform: none; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    @media (max-width: 980px) {
+      .topbar-inner { gap: 12px; }
+      .brand small { display: none; }
+      .nav { max-width: 62vw; }
+      .hero { min-height: 760px; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-copy { padding-top: 100px; }
+      .hero-media::after { background: linear-gradient(90deg, rgba(9,13,12,.92), rgba(9,13,12,.35)), linear-gradient(0deg, var(--bg-deep), transparent 55%); }
+      .section-head { grid-template-columns: 1fr; gap: 15px; }
+      .signal-grid, .base-grid, .check-shell { grid-template-columns: 1fr; }
+      .stage-body { grid-template-columns: 1fr; }
+      .stage-side { border-left: 0; border-top: 1px solid var(--line); }
+      .check-summary { position: static; }
+    }
+
+    @media (max-width: 680px) {
+      .shell { width: min(calc(100% - 28px), var(--max)); }
+      .topbar-inner { min-height: 62px; }
+      .brand strong { font-size: .8rem; }
+      .brand-mark { width: 31px; height: 31px; }
+      .nav { max-width: 54vw; }
+      .nav a { padding: 8px; font-size: .72rem; }
+      .hero { min-height: 720px; }
+      .hero-media img { object-position: 66% center; }
+      .hero-media::after { background: linear-gradient(90deg, rgba(9,13,12,.93), rgba(9,13,12,.48)), linear-gradient(0deg, var(--bg-deep), transparent 58%); }
+      .hero-copy { padding: 88px 0 76px; }
+      h1 { font-size: clamp(3.5rem, 17vw, 5.4rem); }
+      .hero-meta { grid-template-columns: 1fr; }
+      section { padding: 78px 0; }
+      .section-head { margin-bottom: 38px; }
+      .briefing, .stage-main, .stage-side { padding: 22px; }
+      .stage { grid-template-columns: 42px 1fr; gap: 10px; }
+      .stage-marker { width: 42px; height: 42px; top: 82px; font-size: .76rem; }
+      .route::before { left: 21px; top: 40px; }
+      .stage-header { grid-template-columns: 1fr; padding: 22px; }
+      .tower-chip { text-align: left; }
+      .atlas-grid, .source-grid { grid-template-columns: 1fr; }
+      .base-map { min-height: 560px; }
+      .base-core { width: 230px; }
+      .zone { width: 108px; }
+      .z1 { left: 4%; top: 8%; } .z2 { right: 4%; top: 8%; } .z3 { left: 4%; bottom: 8%; } .z4 { right: 4%; bottom: 8%; }
+      .footer-inner { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    @media print {
+      :root { --bg: #fff; --bg-deep: #fff; --surface: #fff; --surface-2: #fff; --text: #151915; --muted: #4f5851; --line: #c9cec9; --line-strong: #9da69e; --accent: #805c19; }
+      body { background: #fff; }
+      body::after, .topbar, .hero-media, .hero-actions, .filters, .button { display: none !important; }
+      .hero { min-height: auto; }
+      .hero-copy { padding: 40px 0; }
+      section { padding: 34px 0; break-inside: avoid; }
+      .stage-card, .briefing, .check-summary { box-shadow: none; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <svg aria-hidden="true" width="0" height="0" style="position:absolute">
+    <symbol id="i-compass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2.1 4.9-4.9 2.1 2.1-4.9 4.9-2.1Z"/></symbol>
+    <symbol id="i-route" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h3a3 3 0 0 0 3-3V9a3 3 0 0 1 3-3"/></symbol>
+    <symbol id="i-base" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m3 11 9-7 9 7"/><path d="M5 10v10h14V10M9 20v-6h6v6"/></symbol>
+    <symbol id="i-pal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M8 5.5 12 12l4-6.5M8 18.5 12 12l4 6.5"/></symbol>
+    <symbol id="i-hammer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m14 5 5 5M16.5 2.5l5 5-4 4-5-5 4-4ZM13 9 4 18l2 2 9-9"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 7.8 7.5 9.5 4.3-1.7 7.5-4.9 7.5-9.5V6L12 3Z"/></symbol>
+    <symbol id="i-flame" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2s1 4-2 7c-2.4 2.4-3 4.2-1.5 6.5 0-3 2-4 3.5-5.5 2.7 2.2 4 4.5 4 7a5 5 0 0 1-10 0c0-3 1.2-5.4 3.7-8.2C11.8 6.3 12.5 4 13 2Z"/></symbol>
+    <symbol id="i-crystal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m8 3-4 7 8 11 8-11-4-7H8Z"/><path d="m4 10 8 3 8-3M8 3l4 10 4-10"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m13 2-8 12h7l-1 8 8-12h-7l1-8Z"/></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Z"/><path d="M9 3v15M15 6v15"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m4 7 8-4 8 4-8 4-8-4Z"/><path d="M4 7v10l8 4 8-4V7M12 11v10"/></symbol>
+  </svg>
+
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="#top" aria-label="Voltar ao início">
+        <span class="brand-mark"><svg><use href="#i-compass"/></svg></span>
+        <span><strong>Atlas de Palpagos</strong><small>Guia Palworld 1.0</small></span>
+      </a>
+      <nav class="nav" aria-label="Navegação principal">
+        <a href="#comecar">Começar</a>
+        <a href="#rota">Rota 1 a 80</a>
+        <a href="#bases">Bases</a>
+        <a href="#tecnologia">Tecnologia</a>
+        <a href="#atlas">Atlas</a>
+        <a href="#checklist">Checklist</a>
+      </nav>
+    </div>
+    <div class="progress-track" aria-hidden="true"><div class="progress-line" id="readingProgress"></div></div>
+  </header>
+
+  <div class="hero" id="top">
+    <picture class="hero-media">
+      <source srcset="assets/hero-palworld.webp" type="image/webp">
+      <img src="assets/hero-palworld.png" alt="Explorador e criaturas observam as ilhas de Palpagos e a grande árvore no horizonte" width="1823" height="863">
+    </picture>
+    <div class="shell hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow">Fresh save, rota validada</div>
+        <h1>Palpagos sem desperdício.</h1>
+        <p class="hero-lead">Um caminho progressivo de Palworld 1.0. Você sempre sabe o que capturar, o que construir, onde investir e qual teste precisa passar antes de seguir.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#rota"><svg><use href="#i-route"/></svg>Iniciar a rota</a>
+          <a class="button" href="#checklist"><svg><use href="#i-check"/></svg>Ver checklist</a>
+        </div>
+        <div class="hero-meta" aria-label="Resumo do guia">
+          <div class="hero-stat"><strong>1.0</strong><span>Versão do jogo</span></div>
+          <div class="hero-stat"><strong>80</strong><span>Nível final</span></div>
+          <div class="hero-stat"><strong>09</strong><span>Torres na rota</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main id="conteudo">
+    <section id="comecar">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div class="section-index">01 / COMEÇO CERTO</div>
+          <div><h2>As quatro regras que governam a campanha.</h2><p class="section-intro">Palworld parece aberto, mas a progressão tem uma espinha dorsal clara: missão principal, captura em lotes, nível da base e torres. Ignore uma dessas frentes e o gargalo chega. Normalmente quando você está carregando minério a pé. Um clássico.</p></div>
+        </div>
+        <div class="signal-grid">
+          <article class="briefing reveal">
+            <h3>Configuração recomendada</h3>
+            <p>Comece um mundo novo em dificuldade Normal. A própria Pocketpair recomenda um personagem novo para a versão 1.0. Mantenha os multiplicadores padrão na primeira campanha. Se o seu tempo de jogo for curto, reduza apenas a incubação de ovos. O guia não depende de qualquer ajuste.</p>
+            <div class="principles">
+              <div class="principle"><span class="icon-box"><svg><use href="#i-pal"/></svg></span><div><strong>Capture cinco de cada espécie fácil</strong><span>O bônus de captura da versão 1.0 fecha com cinco cópias. Troque de espécie assim que completar o lote.</span></div></div>
+              <div class="principle"><span class="icon-box"><svg><use href="#i-map"/></svg></span><div><strong>Ative viagem rápida e watchtowers</strong><span>Viagem rápida rende pontos de tecnologia. Watchtowers revelam mapa e também viram pontos de deslocamento.</span></div></div>
+              <div class="principle"><span class="icon-box"><svg><use href="#i-base"/></svg></span><div><strong>Suba o nível da base cedo</strong><span>As missões do Palbox liberam mais trabalhadores e até quatro bases. Faça o mínimo necessário e siga.</span></div></div>
+              <div class="principle"><span class="icon-box"><svg><use href="#i-shield"/></svg></span><div><strong>Enfrente torres na ordem da história</strong><span>Além de ser a rota natural, a comunidade reportou bloqueios de missão ao quebrar a ordem logo após o lançamento 1.0.</span></div></div>
+            </div>
+          </article>
+          <aside class="status-panel reveal">
+            <div class="status-card"><span class="label">Status da pesquisa</span><strong>Validado em 14/07/2026</strong><p>Quatro dias após o lançamento 1.0. Informações antigas foram descartadas quando conflitavam com o changelog atual.</p></div>
+            <div class="status-card"><span class="label">Pontos iniciais</span><strong>Stamina, Peso e Work Speed</strong><p>Priorize conforto e tempo ganho. Ataque cedo rende pouco perto de mobilidade, carga e produção.</p></div>
+            <div class="status-card"><span class="label">Regra de investimento</span><strong>Tecnologia que remove gargalo</strong><p>Spheres, ferramentas, produção, mobilidade e proteção climática antes de decoração e selas sem uso.</p></div>
+            <div class="notice"><strong>Tradução:</strong> nomes de itens aparecem em inglês quando a localização PT-BR ainda não pôde ser confirmada diretamente no jogo.</div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="rota">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div class="section-index">02 / ROTA PRINCIPAL</div>
+          <div><h2>Nove marcos. Uma campanha inteira.</h2><p class="section-intro">Use o nível da torre como ponto de controle, não como convite automático. A condição de avanço combina equipamento, base, captura e mobilidade. Se o teste de prontidão falhar, corrija o gargalo antes de atravessar o mapa.</p></div>
+        </div>
+        <div class="filters" aria-label="Filtrar fases da rota">
+          <button class="filter active" type="button" data-route-filter="all">Todas</button>
+          <button class="filter" type="button" data-route-filter="early">Início</button>
+          <button class="filter" type="button" data-route-filter="mid">Meio</button>
+          <button class="filter" type="button" data-route-filter="late">Fim</button>
+        </div>
+        <div class="route">
+
+          <article class="stage reveal" data-route="early">
+            <div class="stage-marker">01</div>
+            <div class="stage-card">
+              <header class="stage-header"><div><div class="stage-kicker">Níveis 1 a 10 · Fundamentos</div><h3>Zoe e Grizzbolt</h3></div><div class="tower-chip"><strong>110, -431</strong>Elétrico · use Ground</div></header>
+              <div class="stage-body">
+                <div class="stage-main"><p>Seu objetivo não é correr até a torre. É chegar lá com uma base que trabalha enquanto você explora e uma equipe capaz de capturar sem matar.</p>
+                  <ol class="step-list">
+                    <li><span><strong>Siga a missão principal</strong> até criar Primitive Workbench, Pal Sphere e Palbox. Pegue madeira, pedra e Paldium no caminho.</span></li>
+                    <li><span><strong>Capture em lotes de cinco:</strong> Lamball, Cattiva, Chikipi, Lifmunk, Foxparks e Pengullet. Não fique preso completando espécie rara.</span></li>
+                    <li><span><strong>Monte a base mínima:</strong> baú perto da bancada, camas para todos, Feed Box, Berry Plantation, Hot Spring, Logging Site e Stone Pit.</span></li>
+                    <li><span><strong>Feche a cadeia de trabalho:</strong> Planting, Watering, Gathering, Kindling, Mining, Handiwork e Transporting. Trabalho sem transporte vira chão decorado com recurso.</span></li>
+                    <li><span><strong>Equipe Old Bow ou Three Shot Bow</strong>, escudo, armadura e um Pal Ground. Pupperai é uma boa resposta atual para a primeira torre.</span></li>
+                    <li><span><strong>Derrote Zoe no nível 10</strong>. Mire no treinador quando houver janela, mantenha o Pal ativo e use cobertura nas rajadas de Grizzbolt.</span></li>
+                  </ol>
+                </div>
+                <aside class="stage-side"><h4 class="mini-title">Alvos da fase</h4><ul class="target-list"><li><svg><use href="#i-check"/></svg><span>Cattiva para carga e trabalho geral</span></li><li><svg><use href="#i-check"/></svg><span>Foxparks para fogo, cozinha e Harness</span></li><li><svg><use href="#i-check"/></svg><span>Pengullet para Watering e Cooling</span></li><li><svg><use href="#i-check"/></svg><span>Pupperai ou outro Ground para a torre</span></li></ul><div class="ready"><strong>Teste de prontidão</strong><p>Você produz comida, madeira, pedra e Paldium sem trabalho manual constante, tem escudo e um counter Ground perto do seu nível.</p></div></aside>
+              </div>
+            </div>
+          </article>
+
+          <article class="stage reveal" data-route="early">
+            <div class="stage-marker">02</div>
+            <div class="stage-card">
+              <header class="stage-header"><div><div class="stage-kicker">Níveis 11 a 20 · Mobilidade</div><h3>Lily e Lyleen</h3></div><div class="tower-chip"><strong>184, 27</strong>Grass · use Fire</div></header>
+              <div class="stage-body">
+                <div class="stage-main"><p>A campanha abre quando você deixa de caminhar. Esta fase resolve viagem, minério e o primeiro salto industrial.</p>
+                  <ol class="step-list">
+                    <li><span><strong>Crie Metal Pickaxe e Metal Axe no nível 11.</strong> Pare de gastar tempo extra em cada nó.</span></li>
+                    <li><span><strong>Capture um Direhowl ou Eikthyrdeer</strong> para solo. No nível 15, libere Nitewing Saddle e transforme voo na prioridade da fase.</span></li>
+                    <li><span><strong>Ative fast travel em arco</strong> pelo centro e Bamboo Groves. Colete Pal Effigies, baús e entradas de dungeon sem grandes desvios.</span></li>
+                    <li><span><strong>Garanta minério repetível.</strong> Use o cluster atrás da Desolate Church como solução inicial ou crie um posto temporário em um agrupamento plano.</span></li>
+                    <li><span><strong>Libere Wheat Plantation, Mill e Wooden Board.</strong> Prepare a cadeia de Cake antes de construir Breeding Farm no nível 20.</span></li>
+                    <li><span><strong>Leve Fire para Lily.</strong> Foxparks cumpre o papel no começo. Entre com proteção de frio, munição e comida suficientes para cinco minutos de luta.</span></li>
+                  </ol>
+                </div>
+                <aside class="stage-side"><h4 class="mini-title">Alvos da fase</h4><ul class="target-list"><li><svg><use href="#i-check"/></svg><span>Nitewing, voo a partir do nível 15</span></li><li><svg><use href="#i-check"/></svg><span>Vixy no Ranch para Spheres e ouro</span></li><li><svg><use href="#i-check"/></svg><span>Daedream para dano auxiliar controlado</span></li><li><svg><use href="#i-check"/></svg><span>Base nível 8, segunda base liberada</span></li></ul><div class="ready"><strong>Teste de prontidão</strong><p>Você voa, produz ingot, tem rota de minério marcada e consegue manter Spheres e munição sem interromper toda a base.</p></div></aside>
+              </div>
+            </div>
+          </article>
+
+          <article class="stage reveal" data-route="mid">
+            <div class="stage-marker">03</div>
+            <div class="stage-card">
+              <header class="stage-header"><div><div class="stage-kicker">Níveis 21 a 40 · Indústria</div><h3>Axel e Orserk</h3></div><div class="tower-chip"><strong>-584, -514</strong>Electric + Dragon · Ground + Ice</div></header>
+              <div class="stage-body">
+                <div class="stage-main"><p>Esta é a maior transição da campanha. Você sai de bancada manual e entra em criação, expedição, linhas de produção e minério automático.</p>
+                  <ol class="step-list">
+                    <li><span><strong>Construa Breeding Farm no nível 20.</strong> Mantenha Egg, Milk, Honey, Wheat e Berries em produção. Cake passa a ser infraestrutura.</span></li>
+                    <li><span><strong>Busque Anubis cedo por breeding</strong> quando tiver os pais disponíveis. Handiwork e Mining tornam a base muito mais rápida antes das espécies de fim de jogo.</span></li>
+                    <li><span><strong>Monte Pal Expedition Station no nível 22.</strong> Use Pals ociosos para trazer materiais enquanto você explora.</span></li>
+                    <li><span><strong>No nível 25, construa Ore Mining Site.</strong> A partir daqui, a base de minério externa deixa de ser obrigatória. Mantenha-a apenas se o rendimento justificar.</span></li>
+                    <li><span><strong>Avance Palbox e energia.</strong> Sphere Assembly Line, Production Assembly Line, Power Generator, Improved Furnace e bons trabalhadores são a prioridade real.</span></li>
+                    <li><span><strong>Entre no Mount Obsidian preparado.</strong> Leve armadura resistente a calor, munição, Ground para Orserk e Ice como cobertura contra Dragon.</span></li>
+                  </ol>
+                </div>
+                <aside class="stage-side"><h4 class="mini-title">Alvos da fase</h4><ul class="target-list"><li><svg><use href="#i-check"/></svg><span>Anubis para Handiwork e Mining</span></li><li><svg><use href="#i-check"/></svg><span>Penking ou Azurobe para Watering</span></li><li><svg><use href="#i-check"/></svg><span>Digtoise, Tombat ou minerador superior</span></li><li><svg><use href="#i-check"/></svg><span>Base nível 15, terceira base liberada</span></li></ul><div class="ready"><strong>Teste de prontidão</strong><p>Ore, ingots, spheres e munição saem de uma cadeia automática. Você consegue ficar 20 minutos fora sem a produção parar.</p></div></aside>
+              </div>
+            </div>
+          </article>
+
+          <article class="stage reveal" data-route="mid">
+            <div class="stage-marker">04</div>
+            <div class="stage-card">
+              <header class="stage-header"><div><div class="stage-kicker">Níveis 41 a 45 · Calor e precisão</div><h3>Marcus e Faleris</h3></div><div class="tower-chip"><strong>558, 338</strong>Fire · use Water</div></header>
+              <div class="stage-body">
+                <div class="stage-main"><p>Aqui dano sustentado começa a importar mais que truques de abertura. O alvo é chegar ao deserto com proteção, arma confiável e Water forte.</p>
+                  <ol class="step-list">
+                    <li><span><strong>Troque para Semi-Auto Rifle ou schematic melhor.</strong> Produza munição em lote e mantenha reserva separada no baú de expedição.</span></li>
+                    <li><span><strong>Construa Ore Mining Site II no nível 40.</strong> Se a base ainda depende de viagem manual para ore, corrija agora.</span></li>
+                    <li><span><strong>Explore Dessicated Desert em circuitos.</strong> Ative fast travel, marque Alpha Pals, dungeons, coal e pontos de interesse.</span></li>
+                    <li><span><strong>Capture ou prepare um Water forte.</strong> Azurobe funciona, Jormuntide é a meta natural da fase quando estiver pronto para o Alpha.</span></li>
+                    <li><span><strong>Leve cura, escudo e resistência a calor.</strong> Faleris cria pressão constante. Use pilares, dash e janelas depois dos ataques.</span></li>
+                  </ol>
+                </div>
+                <aside class="stage-side"><h4 class="mini-title">Alvos da fase</h4><ul class="target-list"><li><svg><use href="#i-check"/></svg><span>Jormuntide para Watering e combate</span></li><li><svg><use href="#i-check"/></svg><span>Schematic de arma acima do básico</span></li><li><svg><use href="#i-check"/></svg><span>Coal e Polymer em produção</span></li><li><svg><use href="#i-check"/></svg><span>Equipamento resistente a calor</span></li></ul><div class="ready"><strong>Teste de prontidão</strong><p>Seu Water principal sobrevive à torre, sua arma mantém dano por cinco minutos e o deserto não drena sua vida pelo clima.</p></div></aside>
+              </div>
+            </div>
+          </article>
+
+          <article class="stage reveal" data-route="mid">
+            <div class="stage-marker">05</div>
+            <div class="stage-card">
+              <header class="stage-header"><div><div class="stage-kicker">Níveis 46 a 50 · Frio e petróleo</div><h3>Victor e Shadowbeak</h3></div><div class="tower-chip"><strong>-150, 440</strong>Dark · use Dragon</div></header>
+              <div class="stage-body">
+                <div class="stage-main"><p>Nível 50 é a virada do petróleo. Antes disso, consolide quartzo, frio extremo e uma composição Dragon capaz de lidar com Shadowbeak.</p>
+                  <ol class="step-list">
+                    <li><span><strong>Faça uma rota pelas Astral Mountains.</strong> Leve Cold Resistant armor, marque Pure Quartz, baús, dungeons e Alpha Pals.</span></li>
+                    <li><span><strong>Capture Dragon úteis</strong> e suba-os perto do seu nível. Quivern, Jormuntide Ignis ou opções melhores do seu save servem.</span></li>
+                    <li><span><strong>No nível 50, libere Crude Oil Extractor, Plasteel, Computer e Large Power Generator.</strong> Reserve sua terceira base para petróleo se necessário.</span></li>
+                    <li><span><strong>Use geradores e Electricity especialistas.</strong> O extrator de óleo consome energia pesada. Um trabalhador mediano vira gargalo invisível.</span></li>
+                    <li><span><strong>Contra Victor, priorize sobrevivência.</strong> Shadowbeak pune exposição. Ataque após esquiva, alterne Pals feridos e evite ficar sem escudo.</span></li>
+                  </ol>
+                </div>
+                <aside class="stage-side"><h4 class="mini-title">Alvos da fase</h4><ul class="target-list"><li><svg><use href="#i-check"/></svg><span>Dragon principal no nível da luta</span></li><li><svg><use href="#i-check"/></svg><span>Pure Quartz marcado ou automatizado</span></li><li><svg><use href="#i-check"/></svg><span>Crude Oil Extractor com energia estável</span></li><li><svg><use href="#i-check"/></svg><span>Plasteel e Computer iniciados</span></li></ul><div class="ready"><strong>Teste de prontidão</strong><p>Óleo acumula sem queda de energia, você fabrica Plasteel e seu Dragon consegue ficar em combate sem cair em poucos golpes.</p></div></aside>
+              </div>
+            </div>
+          </article>
+
+          <article class="stage reveal" data-route="late">
+            <div class="stage-marker">06</div>
+            <div class="stage-card">
+              <header class="stage-header"><div><div class="stage-kicker">Níveis 51 a 55 · Sakurajima</div><h3>Saya e Selyne</h3></div><div class="tower-chip"><strong>-597, 203</strong>Dark · use Dragon</div></header>
+              <div class="stage-body">
+                <div class="stage-main"><p>Agora o objetivo é equipamento de Plasteel, Ultimate Spheres e exploração disciplinada de Sakurajima. Não confunda ter acesso com estar pronto.</p>
+                  <ol class="step-list">
+                    <li><span><strong>Priorize Ultimate Sphere, Plasteel Armor e Laser Rifle no nível 51.</strong> Schematics bons passam na frente da receita básica.</span></li>
+                    <li><span><strong>Construa Pure Quartz Quarry no nível 52.</strong> Libere a quarta base ao atingir Base Level 25 e converta bases antigas em funções claras.</span></li>
+                    <li><span><strong>Explore Sakurajima por borda.</strong> Ative fast travel, settlement, watchtower e dungeons antes de atravessar o centro.</span></li>
+                    <li><span><strong>Melhore comida e SAN.</strong> Trabalhadores avançados só valem algo se não passarem metade do turno doentes.</span></li>
+                    <li><span><strong>Leve Dragon forte para Selyne.</strong> A luta exige leitura de área e rotação de Pal, não apenas dano bruto.</span></li>
+                  </ol>
+                </div>
+                <aside class="stage-side"><h4 class="mini-title">Alvos da fase</h4><ul class="target-list"><li><svg><use href="#i-check"/></svg><span>Ultimate Spheres em produção</span></li><li><svg><use href="#i-check"/></svg><span>Plasteel Armor e arma de energia</span></li><li><svg><use href="#i-check"/></svg><span>Quarta base liberada</span></li><li><svg><use href="#i-check"/></svg><span>Jetragon no radar, sem pressa cega</span></li></ul><div class="ready"><strong>Teste de prontidão</strong><p>Você consegue capturar Alpha Pals 50+, sustenta Plasteel e mantém os quatro recursos centrais sem viagem manual obrigatória.</p></div></aside>
+              </div>
+            </div>
+          </article>
+
+          <article class="stage reveal" data-route="late">
+            <div class="stage-marker">07</div>
+            <div class="stage-card">
+              <header class="stage-header"><div><div class="stage-kicker">Níveis 56 a 60 · Feybreak</div><h3>Bjorn e Bastigor</h3></div><div class="tower-chip"><strong>-1294, -1669</strong>Ice · use Fire</div></header>
+              <div class="stage-body">
+                <div class="stage-main"><p>Feybreak é o exame final da velha Palpagos e o portal para Sunreach. Entre com uma base madura, não com a esperança de achar tudo no caminho.</p>
+                  <ol class="step-list">
+                    <li><span><strong>Prepare Cold Resistant Plasteel Armor</strong>, spheres de alto nível, kits de reparo, comida e munição em excesso.</span></li>
+                    <li><span><strong>Leve Fire de alto desempenho.</strong> Jormuntide Ignis continua excelente. Ajuste Active Skills para aproveitar a fraqueza de Bastigor.</span></li>
+                    <li><span><strong>Limpe fast travel e settlement primeiro.</strong> Depois faça Alpha Pals, dungeons e materiais de Feybreak.</span></li>
+                    <li><span><strong>Inicie especialização dos trabalhadores.</strong> Handiwork, Mining, Kindling e Electricity dedicados superam Pals generalistas nesta escala.</span></li>
+                    <li><span><strong>Derrote Bjorn e Bastigor.</strong> O portal no topo da Feybreak Tower libera a passagem para Sunreach.</span></li>
+                  </ol>
+                </div>
+                <aside class="stage-side"><h4 class="mini-title">Alvos da fase</h4><ul class="target-list"><li><svg><use href="#i-check"/></svg><span>Fire principal otimizado</span></li><li><svg><use href="#i-check"/></svg><span>Base Level 25 ou mais</span></li><li><svg><use href="#i-check"/></svg><span>Especialistas de trabalho em evolução</span></li><li><svg><use href="#i-check"/></svg><span>Reserva alta de spheres e munição</span></li></ul><div class="ready"><strong>Teste de prontidão</strong><p>Feybreak deixou de ser zona de sobrevivência e virou zona de farm. Você vence Alpha Pals locais sem gastar todo o estoque.</p></div></aside>
+              </div>
+            </div>
+          </article>
+
+          <article class="stage reveal" data-route="late">
+            <div class="stage-marker">08</div>
+            <div class="stage-card">
+              <header class="stage-header"><div><div class="stage-kicker">Níveis 61 a 70 · Sunreach</div><h3>Auri e Shaolong</h3></div><div class="tower-chip"><strong>-419, 1431</strong>Dragon + Water · Ice + Electric</div></header>
+              <div class="stage-body">
+                <div class="stage-main"><p>Sunreach introduz recursos próprios e a cadeia que abre o World Tree. Aqui exploração e história voltam a andar juntas.</p>
+                  <ol class="step-list">
+                    <li><span><strong>Entre pelo portal da Feybreak Tower.</strong> Ative fast travel em Sunreach e trate voo como requisito.</span></li>
+                    <li><span><strong>Desative os seis terminais.</strong> Eles removem a barreira da Tower of the Azure Covenant.</span></li>
+                    <li><span><strong>Comece a cadeia Soralite.</strong> Ancient Furnace no nível 66 e Ancient Workbench no 67 marcam a nova indústria.</span></li>
+                    <li><span><strong>Monte counter duplo.</strong> Ice responde a Dragon e Electric responde a Water. Não dependa de um único Pal que cobre mal os dois.</span></li>
+                    <li><span><strong>Após a torre, fale com Auri.</strong> Siga a missão de Panthalus, colete os quatro grandes restos e fabrique Echoing Flute.</span></li>
+                    <li><span><strong>Capture Panthalus nível 70.</strong> Mire no cristal da cabeça na primeira fase, evite ondas e não finalize sem Sphere. Ele precisa estar no grupo para abrir o World Tree.</span></li>
+                  </ol>
+                </div>
+                <aside class="stage-side"><h4 class="mini-title">Alvos da fase</h4><ul class="target-list"><li><svg><use href="#i-check"/></svg><span>Seis terminais de Sunreach</span></li><li><svg><use href="#i-check"/></svg><span>Ancient Furnace e Ancient Workbench</span></li><li><svg><use href="#i-check"/></svg><span>Equipe Ice + Electric</span></li><li><svg><use href="#i-check"/></svg><span>Panthalus capturado e no grupo</span></li></ul><div class="ready"><strong>Teste de prontidão</strong><p>Você produz Soralite, domina Sunreach e tem Panthalus vivo no grupo. A porta do World Tree responde ao terminal.</p></div></aside>
+              </div>
+            </div>
+          </article>
+
+          <article class="stage reveal" data-route="late">
+            <div class="stage-marker">09</div>
+            <div class="stage-card">
+              <header class="stage-header"><div><div class="stage-kicker">Níveis 71 a 80 · World Tree</div><h3>Zenara e Astralym</h3></div><div class="tower-chip"><strong>Sealed Sanctum</strong>Sem elemento · sem fraqueza</div></header>
+              <div class="stage-body">
+                <div class="stage-main"><p>O fim não oferece counter elementar gratuito. O que vence é uma conta simples: equipamento final, dano consistente, rotação limpa e Pals realmente treinados.</p>
+                  <ol class="step-list">
+                    <li><span><strong>Explore o World Tree em circuitos curtos.</strong> Traga Paloxite, Radiant Gems, World Tree Holy Water e materiais raros sem arriscar todo o inventário.</span></li>
+                    <li><span><strong>Use Radiant Gems em Awakening</strong> apenas nos Pals que ficarão no seu time final. Não espalhe recurso raro por nostalgia de box.</span></li>
+                    <li><span><strong>Trabalhe Mutation e passives</strong> depois que a base sustentar Cake e incubação em volume. Primeiro um time forte, depois o laboratório de perfeição.</span></li>
+                    <li><span><strong>No nível 80, libere Beam Launcher e Wing Pack.</strong> Schematics superiores continuam tendo prioridade quando disponíveis.</span></li>
+                    <li><span><strong>Feche o time final:</strong> dano principal, segundo dano com kit diferente, suporte, mobilidade e slot flexível. Todos perto do cap e com Active Skills coerentes.</span></li>
+                    <li><span><strong>Entre no Sealed Sanctum preparado para cinco minutos.</strong> Sem fraqueza elemental, o seu resultado depende de uptime, weak points, sobrevivência e troca correta de Pal.</span></li>
+                  </ol>
+                  <details><summary>Spoiler de preparação final</summary><div class="details-body">Faça uma tentativa de leitura antes de gastar seus melhores consumíveis. Identifique padrões de área, janelas de dano e momentos em que um Pal fica exposto. Na tentativa séria, leve o inventário limpo, munição exclusiva da arma principal e cura em acesso rápido.</div></details>
+                </div>
+                <aside class="stage-side"><h4 class="mini-title">Alvos da fase</h4><ul class="target-list"><li><svg><use href="#i-check"/></svg><span>Paloxite e Radiant Gems</span></li><li><svg><use href="#i-check"/></svg><span>Awakening no time definitivo</span></li><li><svg><use href="#i-check"/></svg><span>Arma e armadura de nível 80</span></li><li><svg><use href="#i-check"/></svg><span>Cinco Pals com função definida</span></li></ul><div class="ready"><strong>Teste de prontidão</strong><p>Você não depende de um único Pal, mantém dano durante toda a janela e consegue sair de uma tentativa de leitura sabendo exatamente o que corrigir.</p></div></aside>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="bases">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div class="section-index">03 / ARQUITETURA DE BASE</div>
+          <div><h2>Quatro bases. Quatro funções.</h2><p class="section-intro">A versão 1.0 permite até quatro bases por padrão ao avançar o Palbox. A melhor estrutura não é uma cidade tentando fazer tudo. É uma rede em que cada base tem um motivo para existir.</p></div>
+        </div>
+        <div class="base-grid">
+          <div class="base-map reveal" aria-label="Diagrama de layout funcional de uma base principal">
+            <div class="base-core"></div>
+            <div class="zone z1"><div><strong>Produção</strong><span>Bancadas, linhas, baús</span></div></div>
+            <div class="zone z2"><div><strong>Forja</strong><span>Furnaces, energia</span></div></div>
+            <div class="zone z3"><div><strong>Comida</strong><span>Plantations, cozinha</span></div></div>
+            <div class="zone z4"><div><strong>Bem-estar</strong><span>Camas, SAN, clínica</span></div></div>
+          </div>
+          <div class="base-notes reveal">
+            <div class="base-note"><strong><svg><use href="#i-base"/></svg>Base 1: HQ e produção</strong><p>Terreno plano, acesso limpo e espaço. Centralize bancadas, linhas, cozinha, breeding, armazenamento e Pals de Handiwork.</p></div>
+            <div class="base-note"><strong><svg><use href="#i-crystal"/></svg>Base 2: materiais</strong><p>No começo, use para ore natural. Depois, converta em quarries, mineração automática e processamento pesado.</p></div>
+            <div class="base-note"><strong><svg><use href="#i-flame"/></svg>Base 3: petróleo e energia</strong><p>Coloque onde Crude Oil Extractors façam sentido. Use os melhores Electricity Pals e geradores compatíveis.</p></div>
+            <div class="base-note"><strong><svg><use href="#i-route"/></svg>Base 4: projeto flexível</strong><p>Breeding em volume, farm regional, raid ou posto de Sunreach. A função muda conforme o gargalo atual.</p></div>
+          </div>
+        </div>
+        <div class="notice reveal"><strong>Layout importa:</strong> deixe corredores largos, evite portas estreitas e não empilhe estações onde Pals grandes precisam virar. A IA melhorou, mas ainda não recebeu diploma em arquitetura.</div>
+      </div>
+    </section>
+
+    <section id="tecnologia">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div class="section-index">04 / TECNOLOGIA</div>
+          <div><h2>Compre tempo. Depois compre poder.</h2><p class="section-intro">Pontos são mais apertados no momento em que você menos entende o que vale. Esta lista cobre os marcos que alteram a progressão. Cosméticos, defesa pesada e Pal Gear sem uso ficam para depois.</p></div>
+        </div>
+        <div class="table-wrap reveal">
+          <table>
+            <thead><tr><th>Nível</th><th>Prioridade</th><th>O que muda</th><th>Decisão</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">02 a 10</td><td><strong>Palbox, Spheres, Ranch, produção básica, Statue of Power, Hot Spring, Furnace</strong></td><td>A base começa a funcionar sem você.</td><td>Obrigatório</td></tr>
+              <tr><td class="mono">11 a 15</td><td><strong>Metal tools, High Quality Workbench, Mega Sphere, Condenser, Wheat, Mill, Nitewing Saddle</strong></td><td>Mobilidade, minério rápido e Cake entram na rota.</td><td>Obrigatório</td></tr>
+              <tr><td class="mono">20 a 25</td><td><strong>Breeding Farm, Giga Sphere, Weapon Workbench, Musket, Expedition Station, Ore Mining Site</strong></td><td>Começa a indústria e o breeding estratégico.</td><td>Obrigatório</td></tr>
+              <tr><td class="mono">27 a 40</td><td><strong>Assembly Lines, energia, furnaces melhores, Sphere Line II, Ore Mining Site II</strong></td><td>Volume substitui trabalho manual.</td><td>Alta</td></tr>
+              <tr><td class="mono">41</td><td><strong>Semi-Auto Rifle</strong></td><td>Dano sustentado melhor para torres e Alpha Pals.</td><td>Alta</td></tr>
+              <tr><td class="mono">50</td><td><strong>Crude Oil Extractor, Plasteel, Computer, Large Power Generator</strong></td><td>Abre a economia de petróleo.</td><td>Obrigatório</td></tr>
+              <tr><td class="mono">51 a 52</td><td><strong>Ultimate Sphere, Plasteel Armor, Laser Rifle, Pure Quartz Quarry</strong></td><td>Captura e equipamento de endgame inicial.</td><td>Alta</td></tr>
+              <tr><td class="mono">66 a 67</td><td><strong>Ancient Furnace, Soralite Ingot, Sol Sphere, Ancient Workbench</strong></td><td>Abre a indústria de Sunreach.</td><td>Obrigatório</td></tr>
+              <tr><td class="mono">78 a 80</td><td><strong>Ancient Material Synthesizer, Ancient Farm, Beam Launcher, Wing Pack</strong></td><td>Fecha a progressão de World Tree.</td><td>Final</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="atlas">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div class="section-index">05 / ATLAS OPERACIONAL</div>
+          <div><h2>O que buscar e por quê.</h2><p class="section-intro">Não é uma Palpedia de 287 entradas. É a lista curta de coisas que removem gargalos. Use os filtros para encontrar a próxima captura ou recurso que resolve seu momento.</p></div>
+        </div>
+        <div class="filters" aria-label="Filtrar atlas">
+          <button class="filter active" type="button" data-atlas-filter="all">Tudo</button>
+          <button class="filter" type="button" data-atlas-filter="pal">Pals</button>
+          <button class="filter" type="button" data-atlas-filter="resource">Recursos</button>
+          <button class="filter" type="button" data-atlas-filter="system">Sistemas</button>
+        </div>
+        <div class="atlas-grid">
+          <article class="atlas-card reveal" data-atlas="pal"><div class="atlas-icon"><svg><use href="#i-pal"/></svg></div><h3>Cattiva</h3><p>Trabalhador geral no primeiro dia e bônus de carga no grupo. Mantém valor até a logística ficar confortável.</p><div class="tags"><span class="tag">Início</span><span class="tag">Carga</span><span class="tag">Base</span></div></article>
+          <article class="atlas-card reveal" data-atlas="pal"><div class="atlas-icon"><svg><use href="#i-flame"/></svg></div><h3>Foxparks</h3><p>Kindling, calor e dano Fire cedo. O Harness transforma o Pal em arma útil para a primeira metade do começo.</p><div class="tags"><span class="tag">Início</span><span class="tag">Fire</span></div></article>
+          <article class="atlas-card reveal" data-atlas="pal"><div class="atlas-icon"><svg><use href="#i-route"/></svg></div><h3>Nitewing</h3><p>Primeiro voo simples, com Saddle no nível 15. Substitua pela montaria aérea mais rápida que aparecer depois.</p><div class="tags"><span class="tag">Mobilidade</span><span class="tag">Nível 15</span></div></article>
+          <article class="atlas-card reveal" data-atlas="pal"><div class="atlas-icon"><svg><use href="#i-hammer"/></svg></div><h3>Anubis</h3><p>Alvo de breeding do meio de jogo. Handiwork alto e Mining forte aceleram construção, crafting e minério.</p><div class="tags"><span class="tag">Meio</span><span class="tag">Handiwork</span></div></article>
+          <article class="atlas-card reveal" data-atlas="pal"><div class="atlas-icon"><svg><use href="#i-bolt"/></svg></div><h3>Orserk</h3><p>Meta natural para geração elétrica avançada. Faz diferença real quando petróleo e linhas pesadas entram na base.</p><div class="tags"><span class="tag">Fim</span><span class="tag">Electricity</span></div></article>
+          <article class="atlas-card reveal" data-atlas="pal"><div class="atlas-icon"><svg><use href="#i-route"/></svg></div><h3>Jetragon</h3><p>Montaria aérea final e excelente investimento de mobilidade. Não precisa atrasar a campanha tentando capturá-lo cedo demais.</p><div class="tags"><span class="tag">Fim</span><span class="tag">Voo</span></div></article>
+          <article class="atlas-card reveal" data-atlas="resource"><div class="atlas-icon"><svg><use href="#i-crystal"/></svg></div><h3>Ore e Ingots</h3><p>Gargalo central até o Ore Mining Site no nível 25. Marque clusters cedo e automatize assim que a tecnologia permitir.</p><div class="tags"><span class="tag">Nível 1 a 25</span><span class="tag">Indústria</span></div></article>
+          <article class="atlas-card reveal" data-atlas="resource"><div class="atlas-icon"><svg><use href="#i-crystal"/></svg></div><h3>Pure Quartz</h3><p>Explore Astral Mountains com proteção a frio. Pure Quartz Quarry no nível 52 remove a dependência de rota manual.</p><div class="tags"><span class="tag">Nível 46+</span><span class="tag">Circuitos</span></div></article>
+          <article class="atlas-card reveal" data-atlas="resource"><div class="atlas-icon"><svg><use href="#i-flame"/></svg></div><h3>Crude Oil</h3><p>Começa no nível 50 com Extractor e energia pesada. Dê uma base própria ao petróleo quando o consumo crescer.</p><div class="tags"><span class="tag">Nível 50</span><span class="tag">Plasteel</span></div></article>
+          <article class="atlas-card reveal" data-atlas="resource"><div class="atlas-icon"><svg><use href="#i-crystal"/></svg></div><h3>Soralite e Paloxite</h3><p>Soralite alimenta a indústria de Sunreach. Paloxite e Radiant Gems pertencem ao World Tree e ao equipamento final.</p><div class="tags"><span class="tag">Nível 66+</span><span class="tag">Ancient</span></div></article>
+          <article class="atlas-card reveal" data-atlas="system"><div class="atlas-icon"><svg><use href="#i-pal"/></svg></div><h3>Breeding e Mutation</h3><p>Breeding começa no 20. Mutation é projeto de fim de jogo, com bolos especiais e baixa chance de resultado superior.</p><div class="tags"><span class="tag">Cake</span><span class="tag">Passives</span></div></article>
+          <article class="atlas-card reveal" data-atlas="system"><div class="atlas-icon"><svg><use href="#i-shield"/></svg></div><h3>Awakening</h3><p>Radiant Gems do World Tree fortalecem Pals favoritos. Use no time definitivo, não em candidatos temporários.</p><div class="tags"><span class="tag">World Tree</span><span class="tag">Final</span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="checklist">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div class="section-index">06 / CHECKLIST</div>
+          <div><h2>Seu save, em fatos.</h2><p class="section-intro">Marque somente o que está feito. O progresso fica salvo neste navegador. A porcentagem não mede habilidade, mede o quanto da infraestrutura crítica já deixou de depender da sua memória.</p></div>
+        </div>
+        <div class="check-shell">
+          <aside class="check-summary reveal">
+            <div class="section-index">PROGRESSO GERAL</div>
+            <div class="score"><span id="scoreValue">0</span><small>%</small></div>
+            <div class="score-bar"><div class="score-fill" id="scoreFill"></div></div>
+            <p id="scoreText">O primeiro passo é simples: Palbox no chão e produção básica viva.</p>
+            <button class="button" type="button" id="resetChecklist"><svg><use href="#i-route"/></svg>Zerar checklist</button>
+          </aside>
+          <div class="check-groups reveal" id="checklistItems">
+            <div class="check-group"><h3>Fundação</h3>
+              <label class="check-item"><input type="checkbox" data-check="palbox"><span>Palbox, camas, comida, Hot Spring e armazenamento organizados</span></label>
+              <label class="check-item"><input type="checkbox" data-check="capture-five"><span>Cinco capturas das espécies fáceis do começo</span></label>
+              <label class="check-item"><input type="checkbox" data-check="zoe"><span>Zoe e Grizzbolt derrotados</span></label>
+              <label class="check-item"><input type="checkbox" data-check="flight"><span>Nitewing ou outra montaria aérea ativa</span></label>
+            </div>
+            <div class="check-group"><h3>Indústria</h3>
+              <label class="check-item"><input type="checkbox" data-check="ore"><span>Ore e ingots automatizados</span></label>
+              <label class="check-item"><input type="checkbox" data-check="breeding"><span>Breeding Farm e cadeia de Cake funcionando</span></label>
+              <label class="check-item"><input type="checkbox" data-check="assembly"><span>Linhas de produção e energia estáveis</span></label>
+              <label class="check-item"><input type="checkbox" data-check="three-bases"><span>Três bases com função definida</span></label>
+            </div>
+            <div class="check-group"><h3>Endgame inicial</h3>
+              <label class="check-item"><input type="checkbox" data-check="oil"><span>Crude Oil, Plasteel e Computer em produção</span></label>
+              <label class="check-item"><input type="checkbox" data-check="four-bases"><span>Quatro bases liberadas no Palbox</span></label>
+              <label class="check-item"><input type="checkbox" data-check="feybreak"><span>Bjorn e Bastigor derrotados</span></label>
+              <label class="check-item"><input type="checkbox" data-check="sunreach"><span>Sunreach liberada e seis terminais desativados</span></label>
+            </div>
+            <div class="check-group"><h3>World Tree</h3>
+              <label class="check-item"><input type="checkbox" data-check="auri"><span>Auri e Shaolong derrotados</span></label>
+              <label class="check-item"><input type="checkbox" data-check="panthalus"><span>Panthalus capturado e World Tree aberto</span></label>
+              <label class="check-item"><input type="checkbox" data-check="ancient"><span>Ancient Furnace e Ancient Workbench ativos</span></label>
+              <label class="check-item"><input type="checkbox" data-check="final"><span>Zenara e Astralym derrotados</span></label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="fontes">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div class="section-index">07 / FUNDAMENTAÇÃO</div>
+          <div><h2>Fonte atual, versão explícita.</h2><p class="section-intro">O guia separa dado confirmado de recomendação editorial. O changelog oficial governa sistemas e cap. PalDB governa tecnologia. Fontes publicadas após 1.0 apoiam torres e rotas.</p></div>
+        </div>
+        <div class="source-grid reveal">
+          <a class="source" href="https://store.steampowered.com/news/app/1623730/view/686383649529010623" target="_blank" rel="noopener noreferrer"><strong>Changelog oficial Palworld 1.0</strong><span>Pocketpair, 10/07/2026. Áreas, cap 80, 72 Pals, captura, story, bases, Awakening e Mutation.</span></a>
+          <a class="source" href="https://paldb.cc/en/Technologies" target="_blank" rel="noopener noreferrer"><strong>PalDB Technologies v1.0.0</strong><span>Níveis e marcos da árvore de tecnologia, do Palbox ao Wing Pack.</span></a>
+          <a class="source" href="https://paldb.cc/Base" target="_blank" rel="noopener noreferrer"><strong>PalDB Base</strong><span>Missões do Palbox, número de trabalhadores e liberação das quatro bases.</span></a>
+          <a class="source" href="https://www.gamespot.com/articles/palworld-boss-tower-locations-guide/1100-6520649/" target="_blank" rel="noopener noreferrer"><strong>GameSpot: nove torres</strong><span>Atualizado em 14/07/2026. Ordem, níveis, coordenadas, elementos e fraquezas.</span></a>
+          <a class="source" href="https://games.gg/palworld/guides/palworld-how-to-capture-panthalus-and-reach-the-world-tree/" target="_blank" rel="noopener noreferrer"><strong>GAMES.GG: Panthalus e World Tree</strong><span>Terminais de Sunreach, Echoing Flute, captura e abertura do World Tree.</span></a>
+          <a class="source" href="https://allthings.how/palworld-1-0-best-base-pals-for-every-work-job/" target="_blank" rel="noopener noreferrer"><strong>All Things How: trabalhadores 1.0</strong><span>Work Suitability até nível 10, especialistas e mudanças no Condenser.</span></a>
+        </div>
+        <div style="margin-top:36px" class="reveal">
+          <details><summary>O que mudou em 1.0 e quebra guias antigos?</summary><div class="details-body">O cap agora é 80. O bônus de captura caiu de doze para cinco capturas. Work Suitability foi expandido para dez níveis. Há nove torres, Sunreach, World Tree, Awakening, Mutation, novas áreas, habitats reorganizados e uma história principal refeita. Se um guia ainda manda capturar doze de cada espécie ou termina no nível 65, ele não está descrevendo este jogo.</div></details>
+          <details><summary>Por que não há lista dos 287 Pals?</summary><div class="details-body">Porque quantidade não substitui decisão. Este guia prioriza os Pals que resolvem trabalho, mobilidade e counters de fase. Para localização individual e breeding exato, use uma base de dados atualizada para a sua versão.</div></details>
+          <details><summary>Posso jogar em coop?</summary><div class="details-body">Sim. A rota continua válida, mas recursos, número de trabalhadores e preparação de chefe precisam ser ajustados ao tamanho do grupo. Este documento foi calibrado para solo e PvE.</div></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-inner"><span>Atlas de Palpagos · guia pessoal para Palworld 1.0</span><span>Pesquisa e revisão: 14/07/2026 · arte original</span></div>
+  </footer>
+
+  <script>
+    (() => {
+      const storageKey = 'palworld-guide-checks-v1';
+      const checks = [...document.querySelectorAll('[data-check]')];
+      const scoreValue = document.getElementById('scoreValue');
+      const scoreFill = document.getElementById('scoreFill');
+      const scoreText = document.getElementById('scoreText');
+      const progress = document.getElementById('readingProgress');
+
+      const safeRead = () => {
+        try { return JSON.parse(localStorage.getItem(storageKey)) || {}; }
+        catch { return {}; }
+      };
+      const safeWrite = value => {
+        try { localStorage.setItem(storageKey, JSON.stringify(value)); }
+        catch { /* O checklist continua funcional na sessão. */ }
+      };
+
+      const saved = safeRead();
+      checks.forEach(input => { input.checked = Boolean(saved[input.dataset.check]); });
+
+      function updateScore() {
+        const done = checks.filter(input => input.checked).length;
+        const pct = Math.round((done / checks.length) * 100);
+        scoreValue.textContent = pct;
+        scoreFill.style.width = `${pct}%`;
+        scoreText.textContent = pct === 100
+          ? 'Infraestrutura completa. Agora o problema é só o chefe final. Educado da parte dele.'
+          : pct >= 70
+            ? 'A base já sustenta o endgame. Falta fechar os marcos finais.'
+            : pct >= 35
+              ? 'A economia está tomando forma. Automatize antes de adicionar consumo.'
+              : 'O primeiro passo é simples: Palbox no chão e produção básica viva.';
+      }
+
+      checks.forEach(input => input.addEventListener('change', () => {
+        const state = {};
+        checks.forEach(item => { state[item.dataset.check] = item.checked; });
+        safeWrite(state);
+        updateScore();
+      }));
+
+      document.getElementById('resetChecklist').addEventListener('click', () => {
+        if (!window.confirm('Zerar todo o checklist deste guia?')) return;
+        checks.forEach(input => { input.checked = false; });
+        safeWrite({});
+        updateScore();
+      });
+
+      document.querySelectorAll('[data-route-filter]').forEach(button => {
+        button.addEventListener('click', () => {
+          document.querySelectorAll('[data-route-filter]').forEach(item => item.classList.remove('active'));
+          button.classList.add('active');
+          const filter = button.dataset.routeFilter;
+          document.querySelectorAll('[data-route]').forEach(stage => {
+            stage.hidden = filter !== 'all' && stage.dataset.route !== filter;
+          });
+        });
+      });
+
+      document.querySelectorAll('[data-atlas-filter]').forEach(button => {
+        button.addEventListener('click', () => {
+          document.querySelectorAll('[data-atlas-filter]').forEach(item => item.classList.remove('active'));
+          button.classList.add('active');
+          const filter = button.dataset.atlasFilter;
+          document.querySelectorAll('[data-atlas]').forEach(card => {
+            card.hidden = filter !== 'all' && card.dataset.atlas !== filter;
+          });
+        });
+      });
+
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reducedMotion && 'IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: .08 });
+        document.querySelectorAll('.reveal').forEach(element => observer.observe(element));
+      } else {
+        document.querySelectorAll('.reveal').forEach(element => element.classList.add('visible'));
+      }
+
+      function updateReadingProgress() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+        progress.style.width = `${Math.min(100, Math.max(0, pct))}%`;
+      }
+      window.addEventListener('scroll', updateReadingProgress, { passive: true });
+      window.addEventListener('resize', updateReadingProgress, { passive: true });
+      updateReadingProgress();
+      updateScore();
+    })();
+  </script>
+</body>
+</html>
