@@ -183,6 +183,69 @@
     .notice { padding: 17px 18px; border-left: 3px solid var(--accent); color: #d8ded8; background: var(--accent-soft); }
     .notice strong { color: var(--accent); }
 
+    .field-manual { display: grid; grid-template-columns: 1.08fr .92fr; gap: 24px; margin-top: 34px; }
+    .media-frame { position: relative; overflow: hidden; min-height: 460px; margin: 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); }
+    .media-frame img { width: 100%; height: 100%; min-height: inherit; object-fit: cover; }
+    .media-frame::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(0deg, rgba(8,12,10,.94), transparent 54%); }
+    .media-frame figcaption { position: absolute; left: 24px; right: 24px; bottom: 22px; z-index: 1; }
+    .media-frame figcaption strong { display: block; font-size: 1.2rem; }
+    .media-frame figcaption span { display: block; max-width: 58ch; margin-top: 5px; color: #c7d0c8; font-size: .84rem; }
+    .field-steps { display: grid; align-content: start; gap: 1px; border-top: 1px solid var(--line); background: var(--line); }
+    .field-step { display: grid; grid-template-columns: 46px 1fr; gap: 15px; padding: 20px; background: var(--surface); }
+    .field-step .icon-box { width: 42px; height: 42px; }
+    .field-step strong { display: block; }
+    .field-step p { margin: 5px 0 0; color: var(--muted); font-size: .86rem; }
+
+    .gear-layout { display: grid; grid-template-columns: 1.35fr .65fr; gap: 24px; }
+    .gear-ladder { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--line); }
+    .gear-step { display: grid; grid-template-columns: 100px 48px minmax(0, 1fr); gap: 18px; align-items: center; padding: 22px; background: var(--surface); border-bottom: 1px solid var(--line); }
+    .gear-step:last-child { border-bottom: 0; }
+    .gear-level { color: var(--accent); font: 700 .8rem ui-monospace, "SFMono-Regular", Consolas, monospace; letter-spacing: .06em; }
+    .gear-step h3 { margin: 0; font-size: 1rem; }
+    .gear-step p { margin: 5px 0 0; color: var(--muted); font-size: .84rem; }
+    .gear-aside { display: grid; align-content: start; gap: 14px; }
+    .rule-card { padding: 23px; border-top: 1px solid var(--line-strong); background: rgba(255,255,255,.018); }
+    .rule-card .atlas-icon { margin-bottom: 17px; }
+    .rule-card h3 { margin: 0; font-size: 1.08rem; }
+    .rule-card p { margin: 8px 0 0; color: var(--muted); font-size: .86rem; }
+
+    .world-map-grid { display: grid; grid-template-columns: 1.42fr .58fr; gap: 24px; }
+    .world-map { min-height: 590px; }
+    .world-map img { object-position: center; }
+    .map-index { display: grid; align-content: start; gap: 10px; }
+    .map-pin { display: grid; grid-template-columns: 44px 1fr auto; gap: 13px; align-items: center; padding: 15px; border: 1px solid var(--line); border-radius: 13px; background: rgba(255,255,255,.018); }
+    .map-pin svg { color: var(--accent); }
+    .map-pin strong { display: block; font-size: .9rem; }
+    .map-pin > .icon-box { color: var(--accent); }
+    .map-pin div span { display: block; color: var(--muted); font-size: .76rem; }
+    .map-pin code { color: var(--accent); font: 600 .73rem ui-monospace, "SFMono-Regular", Consolas, monospace; white-space: nowrap; }
+
+    .breeding-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .cake-card { position: relative; min-height: 225px; padding: 24px 24px 24px 92px; overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: rgba(255,255,255,.018); }
+    .cake-card::before { content: ""; position: absolute; left: 24px; top: 26px; width: 46px; height: 58px; border: 1px solid var(--line-strong); border-radius: 50% 50% 47% 47%; background: radial-gradient(circle at 42% 34%, rgba(255,255,255,.24) 0 8%, transparent 9%), var(--accent-soft); box-shadow: inset 0 1px rgba(255,255,255,.08); }
+    .cake-card .mono { color: var(--accent); font-size: .74rem; letter-spacing: .06em; }
+    .cake-card h3 { margin: 10px 0 7px; font-size: 1.08rem; }
+    .cake-card p { margin: 0; color: var(--muted); font-size: .86rem; }
+    .cake-card small { display: block; margin-top: 15px; color: #cad2cc; }
+
+    .loadout-shell { overflow: hidden; margin-top: 30px; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(255,255,255,.018); }
+    .loadout-tabs { display: flex; gap: 1px; padding: 8px; border-bottom: 1px solid var(--line); background: var(--surface-2); }
+    .loadout-tab { flex: 1; min-height: 44px; padding: 8px 12px; border: 1px solid transparent; border-radius: 10px; color: var(--muted); background: transparent; cursor: pointer; transition: color .22s ease, background .22s ease, transform .22s ease; }
+    .loadout-tab:hover, .loadout-tab:focus-visible { color: var(--text); }
+    .loadout-tab[aria-selected="true"] { color: var(--bg); background: var(--accent); font-weight: 700; }
+    .loadout-tab:active { transform: translateY(1px); }
+    .loadout-panel { display: grid; grid-template-columns: .6fr 1.4fr; gap: 34px; padding: 30px; }
+    .loadout-panel[hidden] { display: none; }
+    .loadout-title { align-self: center; }
+    .loadout-title .atlas-icon { width: 58px; height: 58px; }
+    .loadout-title h3 { margin: 17px 0 8px; font-size: 1.5rem; }
+    .loadout-title p { margin: 0; color: var(--muted); }
+    .accessory-list { display: grid; gap: 1px; border-top: 1px solid var(--line); background: var(--line); }
+    .accessory-row { display: grid; grid-template-columns: 38px 1fr; gap: 13px; padding: 16px 0; background: var(--surface); }
+    .accessory-row svg { margin-top: 3px; color: var(--accent); }
+    .accessory-row strong { display: block; font-size: .9rem; }
+    .accessory-row span { display: block; margin-top: 3px; color: var(--muted); font-size: .82rem; }
+
     .decision-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
     .decision-card { position: relative; min-height: 235px; padding: 22px; border: 1px solid var(--line); border-radius: 15px; background: rgba(255,255,255,.018); }
     .decision-card::before { content: attr(data-order); position: absolute; right: 18px; top: 15px; color: rgba(216,166,75,.34); font: 600 2rem ui-monospace, monospace; }
@@ -332,7 +395,7 @@
       .hero-copy { padding-top: 100px; }
       .hero-media::after { background: linear-gradient(90deg, rgba(9,13,12,.92), rgba(9,13,12,.35)), linear-gradient(0deg, var(--bg-deep), transparent 55%); }
       .section-head { grid-template-columns: 1fr; gap: 15px; }
-      .signal-grid, .base-grid, .check-shell { grid-template-columns: 1fr; }
+      .signal-grid, .base-grid, .check-shell, .field-manual, .gear-layout, .world-map-grid { grid-template-columns: 1fr; }
       .decision-grid, .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .role-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .location-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -340,6 +403,7 @@
       .stage-body { grid-template-columns: 1fr; }
       .stage-side { border-left: 0; border-top: 1px solid var(--line); }
       .check-summary { position: static; }
+      .world-map { min-height: 500px; }
     }
 
     @media (max-width: 680px) {
@@ -364,7 +428,16 @@
       .stage-header { grid-template-columns: 1fr; padding: 22px; }
       .tower-chip { text-align: left; }
       .atlas-grid, .source-grid { grid-template-columns: 1fr; }
-      .decision-grid, .operation-grid, .role-grid, .metric-grid, .location-grid, .pipeline, .compact-links { grid-template-columns: 1fr; }
+      .decision-grid, .operation-grid, .role-grid, .metric-grid, .location-grid, .pipeline, .compact-links, .breeding-grid { grid-template-columns: 1fr; }
+      .media-frame, .world-map { min-height: 410px; }
+      .media-frame figcaption { left: 18px; right: 18px; bottom: 17px; }
+      .gear-step { grid-template-columns: 72px 42px minmax(0, 1fr); gap: 11px; padding: 18px 15px; }
+      .map-pin { grid-template-columns: 38px 1fr; }
+      .map-pin code { grid-column: 2; }
+      .cake-card { padding-left: 82px; }
+      .loadout-tabs { overflow-x: auto; }
+      .loadout-tab { min-width: 130px; }
+      .loadout-panel { grid-template-columns: 1fr; gap: 24px; padding: 22px; }
       .atlas-card.pal-card { min-height: 158px; padding-left: 108px; }
       .pal-portrait { width: 70px; height: 70px; }
       .base-map { min-height: 560px; }
@@ -413,6 +486,14 @@
     <symbol id="i-speed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 15a8 8 0 1 1 16 0"/><path d="m12 15 4-5M3 19h18"/></symbol>
     <symbol id="i-sword" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m14 4 6-2-2 6L8 18l-4 2 2-4L16 6"/><path d="m7 13 4 4"/></symbol>
     <symbol id="i-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-2.9-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></symbol>
+    <symbol id="i-fish" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12c3-5 8-6 13-3l4-3v12l-4-3c-5 3-10 2-13-3Z"/><circle cx="15.5" cy="11" r=".7" fill="currentColor"/></symbol>
+    <symbol id="i-cave" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 20 8 5l4 6 3-8 6 17H3Z"/><path d="M9 20c0-3 1.3-5 3-5s3 2 3 5"/></symbol>
+    <symbol id="i-gun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9h12l5 3-5 2H9l-2 6H4l1-7H3V9Z"/><path d="M12 9V6h5v3"/></symbol>
+    <symbol id="i-boot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 3h6v8l3 3 5 1v5H9c-4 0-6-2-6-5v-2h5L7 3Z"/></symbol>
+    <symbol id="i-egg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3c4 0 7 6.7 7 11a7 7 0 0 1-14 0c0-4.3 3-11 7-11Z"/></symbol>
+    <symbol id="i-chest" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10V7a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v3M3 10h18v10H3V10Z"/><path d="M10 10v4h4v-4"/></symbol>
   </svg>
 
   <header class="topbar">
@@ -425,8 +506,10 @@
         <a href="#comecar">Começar</a>
         <a href="#atributos">Atributos</a>
         <a href="#rota">Rota 1 a 80</a>
+        <a href="#equipamento">Arsenal</a>
         <a href="#economia">Economia</a>
         <a href="#bases">Bases</a>
+        <a href="#mapa">Mapa</a>
         <a href="#tecnologia">Tecnologia</a>
         <a href="#operacao">Pals e combate</a>
         <a href="#atlas">Atlas</a>
@@ -478,12 +561,25 @@
             </div>
           </article>
           <aside class="status-panel reveal">
-            <div class="status-card"><span class="label">Status da pesquisa</span><strong>Revisado em 17/07/2026</strong><p>Fontes publicadas após a versão 1.0 foram cruzadas com a rota. Informação de Early Access não entra por nostalgia.</p></div>
+            <div class="status-card"><span class="label">Status da pesquisa</span><strong>Revisado em 20/07/2026</strong><p>Fontes publicadas após a versão 1.0 foram cruzadas com a rota. Informação de Early Access não entra por nostalgia.</p></div>
             <div class="status-card"><span class="label">Pontos iniciais</span><strong>Peso, Vigor e Vida</strong><p>Compre autonomia primeiro. Velocidade de Trabalho é situacional e Ataque fica para quando arma, defesa e mobilidade já estiverem resolvidas.</p></div>
             <div class="status-card"><span class="label">Regra de investimento</span><strong>Tecnologia que remove gargalo</strong><p>Esferas, ferramentas, produção, mobilidade e proteção climática antes de decoração e selas sem uso.</p></div>
             <div class="notice"><strong>Tradução:</strong> nomes de itens aparecem em inglês quando a localização PT-BR ainda não pôde ser confirmada diretamente no jogo.</div>
             <div class="notice"><strong>Plataforma:</strong> o guia foi escrito para PS5. Ações aparecem pelo nome mostrado na interface e seguem o fluxo do controle.</div>
           </aside>
+        </div>
+        <div class="field-manual">
+          <figure class="media-frame reveal">
+            <img src="assets/base-minerio-156-394.webp" alt="Mapa do jogo indicando um terreno plano com minério próximo das coordenadas 156, -394" width="1400" height="734" loading="lazy">
+            <figcaption><strong>Primeiro posto de minério: 156, -394</strong><span>Use o local como transição, não como casamento. Quando o Garimpo de Metais entrar no nível 25, a função vale mais que o minério natural.</span></figcaption>
+          </figure>
+          <div class="field-steps reveal" aria-label="Rota das primeiras duas horas">
+            <article class="field-step"><span class="icon-box"><svg><use href="#i-eye"/></svg></span><div><strong>01. Ajuste o controle</strong><p>Se a sua versão exibir interação com toque único, ative. No PS5, confirme o nome da opção antes de alterar. O objetivo é evitar segurar o botão em toda bancada.</p></div></article>
+            <article class="field-step"><span class="icon-box"><svg><use href="#i-chest"/></svg></span><div><strong>02. Vasculhe o spawn</strong><p>Pegue o baú, as anotações e os recursos soltos antes de descer. Madeira, Pedra, Frutinhas e Paldium encurtam o primeiro ciclo de fabricação.</p></div></article>
+            <article class="field-step"><span class="icon-box"><svg><use href="#i-pal"/></svg></span><div><strong>03. Feche quatro lotes de cinco</strong><p>Lamball, Cattiva, Chikipi e Teafant ou Pupperai colocam o personagem perto do nível 7 sem farm repetitivo.</p></div></article>
+            <article class="field-step"><span class="icon-box"><svg><use href="#i-cave"/></svg></span><div><strong>04. Trate dungeon como caixa de ferramentas</strong><p>Baús finais, Manuais de Tecnologia Antiga, elixires, Lotus e Pals Alfa justificam o desvio. Marque entradas que ainda estiverem acima do seu nível.</p></div></article>
+            <article class="field-step"><span class="icon-box"><svg><use href="#i-fish"/></svg></span><div><strong>05. Libere pesca no nível 15</strong><p>Use pontos de pesca para encontrar Pals aquáticos e buscar passivas menos comuns. É alternativa de captura, não obrigação da campanha.</p></div></article>
+          </div>
         </div>
       </div>
     </section>
@@ -712,10 +808,34 @@
       </div>
     </section>
 
+    <section id="equipamento">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div class="section-index">04 / ARSENAL E ESQUEMAS</div>
+          <div><h2>Suba de categoria. Não cultue raridade.</h2><p class="section-intro">Uma arma lendária antiga pode perder para a versão básica da categoria seguinte. Use esquemas para prolongar armas boas, não para transformar equipamento vencido em projeto de fim de semana.</p></div>
+        </div>
+        <div class="gear-layout">
+          <div class="gear-ladder reveal" aria-label="Escada de equipamento por faixa de nível">
+            <article class="gear-step"><span class="gear-level">01 a 10</span><span class="icon-box"><svg><use href="#i-gun"/></svg></span><div><h3>Arco Velho ou Arco de Três Tiros</h3><p>Barato, munição simples e dano suficiente para captura e Zoe. Troque quando o tempo para abater um alvo começar a consumir mais flechas que paciência.</p></div></article>
+            <article class="gear-step"><span class="gear-level">11 a 25</span><span class="icon-box"><svg><use href="#i-cave"/></svg></span><div><h3>Besta ou arma encontrada em Ruína Antiga</h3><p>Um esquema roxo antecipado pode carregar esta faixa. A Ruína Antiga em <span class="mono">49, -330</span> é um desvio opcional registrado em vídeo.</p></div></article>
+            <article class="gear-step"><span class="gear-level">26 a 40</span><span class="icon-box"><svg><use href="#i-gun"/></svg></span><div><h3>Pistola e Fuzil de Tiro Único</h3><p>Priorize cadência, munição sustentável e dano por abertura. Uma Pistola melhor pode ser obtida na região de <span class="mono">-700, -686</span>.</p></div></article>
+            <article class="gear-step"><span class="gear-level">41 a 54</span><span class="icon-box"><svg><use href="#i-bolt"/></svg></span><div><h3>Fuzil Semiautomático, Assalto e Laser</h3><p>Esta é a faixa em que munição e produção importam mais que a cor do esquema. Farm de cavernas, airdrops e bosses só entra se sustentar a próxima torre.</p></div></article>
+            <article class="gear-step"><span class="gear-level">55 a 67</span><span class="icon-box"><svg><use href="#i-crystal"/></svg></span><div><h3>Plasma, Gatling Laser e plataformas de petróleo</h3><p>Use oil rigs, Coliseu, cavernas de Feybreak e chefes para saltos reais. Não passe horas buscando uma melhoria pequena quando Sunreach já oferece outra categoria.</p></div></article>
+            <article class="gear-step"><span class="gear-level">68 a 80</span><span class="icon-box"><svg><use href="#i-star"/></svg></span><div><h3>Armas antigas, Beam Launcher e torres no difícil</h3><p>Depois da campanha, as torres no difícil e o conteúdo final viram fontes de esquemas. Antes disso, a prioridade é terminar a rota com equipamento consistente.</p></div></article>
+          </div>
+          <aside class="gear-aside reveal">
+            <article class="rule-card"><div class="atlas-icon"><svg><use href="#i-check"/></svg></div><h3>Regra do salto</h3><p>Troque quando a categoria nova entrega mais dano, cadência ou economia de munição. Raridade só desempata armas da mesma família.</p></article>
+            <article class="rule-card"><div class="atlas-icon"><svg><use href="#i-chest"/></svg></div><h3>Onde procurar</h3><p>Ruínas Antigas, cavernas, airdrops, bosses Alfa, plataformas de petróleo, Coliseu e torres no difícil. Cada região tem um teto de recompensa.</p></article>
+            <details><summary>Pós-campanha: Pals do nível 1 ao 80</summary><div class="details-body"><p>Omascul aumenta em 40% a 80% a experiência dos Pals do grupo conforme a Habilidade de Parceiro evolui. O efeito não acumula. Combine um Omascul maximizado, Growth Acceleration Bell e repetição do chefe final para treinar novos Pals rapidamente.</p><p>Isso exige campanha concluída, grupo forte e equipamento final. É treinamento de reserva, não rota de progressão.</p></div></details>
+          </aside>
+        </div>
+      </div>
+    </section>
+
     <section id="economia">
       <div class="shell">
         <div class="section-head reveal">
-          <div class="section-index">04 / ECONOMIA E RECURSOS</div>
+          <div class="section-index">05 / ECONOMIA E RECURSOS</div>
           <div><h2>Automatize na ordem em que o jogo cobra.</h2><p class="section-intro">O vídeo de recursos foi transformado nesta linha de produção. A regra é simples: nunca inaugure um consumidor novo sem reserva, energia e trabalhador para alimentá-lo.</p></div>
         </div>
         <div class="table-wrap reveal">
@@ -737,13 +857,24 @@
           <article class="operation-card"><h3><svg><use href="#i-box"/></svg>Buffers que evitam colapso</h3><ul><li>Comida: mantenha 2 ciclos completos de produção no Feed Box.</li><li>Material: guarde 2 lotes da próxima receita antes de trocar de fase.</li><li>Energia: o gerador deve operar com sobra, não no limite do extrator.</li><li>Transporte: baú ao lado da saída reduz mais atraso que outro trabalhador aleatório.</li></ul></article>
           <article class="operation-card"><h3><svg><use href="#i-crystal"/></svg>Fazenda de Criação por fase</h3><ul><li>Vixy cedo: Esferas, flechas e ouro.</li><li>Chikipi, Mozzarina e Beegarde: Ovo, Leite e Mel. Permanecem úteis por causa de Bolo.</li><li>Kelpsea e Dumud: Fluidos de Pal e Óleo de Pal Requintado.</li><li>Sibelyx, Sootseer e Surfent: Tecido de Alta Qualidade, Osso e Couro.</li></ul></article>
         </div>
+        <h3 class="reveal" style="margin:52px 0 18px;font-size:1.55rem">Breeding 1.0 sem laboratório prematuro</h3>
+        <div class="breeding-grid reveal">
+          <article class="cake-card"><span class="mono">NÍVEL 20</span><h3>Bolo padrão</h3><p>Inicia a cadeia com Farinha, Frutinhas Vermelhas, Leite, Ovo e Mel. Use primeiro para trabalhadores que removem gargalos.</p><small>Meta: Anubis, Rega, Garimpo e produção.</small></article>
+          <article class="cake-card"><span class="mono">NÍVEL 47</span><h3>Bolo de Verduras</h3><p>Produz dois ovos por ciclo. É o melhor salto de volume quando Tomate e Alface já fazem parte da agricultura.</p><small>Meta: condensação e seleção de passivas em volume.</small></article>
+          <article class="cake-card"><span class="mono">NÍVEL 60</span><h3>Bolo de Verduras Extravagante</h3><p>Aumenta a qualidade de atributos e possui 3% de chance de gerar Ovo Mutado. Mutação é bônus raro, não cronograma.</p><small>Meta: candidatos para o time definitivo.</small></article>
+          <article class="cake-card"><span class="mono">NÍVEL 74</span><h3>Bolo Especial</h3><p>Aumenta a chance de herdar várias passivas dos pais. Até seis passivas podem ser transferidas no sistema da versão 1.0.</p><small>Meta: fechar a linhagem final sem depender apenas de sorte.</small></article>
+        </div>
+        <div class="operation-grid reveal">
+          <article class="operation-card"><h3><svg><use href="#i-egg"/></svg>O que mudou de verdade</h3><ul><li>O Condenser agora exige 48 Pals no total: 4, 8, 12 e 24.</li><li>Ovos Mutados podem trazer atributos maiores e uma passiva exclusiva.</li><li>Habitats e combinações foram redistribuídos, reduzindo atalhos antigos de breeding.</li><li>Use uma calculadora atualizada com os Pals que você já possui.</li></ul></article>
+          <article class="operation-card"><h3><svg><use href="#i-speed"/></svg>Velocidade sem superstição</h3><ul><li>Babysitter aumenta produção de ovos e incubação em 30% para Pals atribuídos à Fazenda de Acasalamento.</li><li>Não conte com múltiplas Babysitter acumulando até confirmação direta.</li><li>Pesquisas que geram comida extra reduzem o custo real de cada lote de Bolo.</li><li><a href="https://palworld.gg/breeding-calculator" target="_blank" rel="noopener noreferrer">Calcule o caminho de breeding antes de consumir os pais.</a></li></ul></article>
+        </div>
       </div>
     </section>
 
     <section id="bases">
       <div class="shell">
         <div class="section-head reveal">
-          <div class="section-index">05 / ARQUITETURA DE BASE</div>
+          <div class="section-index">06 / ARQUITETURA DE BASE</div>
           <div><h2>Terreno primeiro. Palbox depois.</h2><p class="section-intro">A automação de recursos da versão 1.0 reduziu o valor de morar sobre minério. O que manda agora é área plana, circulação de Pals grandes, energia e distância curta entre produção e armazenamento.</p></div>
         </div>
         <div class="base-grid">
@@ -785,10 +916,36 @@
       </div>
     </section>
 
+    <section id="mapa">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div class="section-index">07 / MAPA DE CAMPO</div>
+          <div><h2>Coordenada sem contexto é só um número perdido.</h2><p class="section-intro">Use o mapa como visão macro e os pontos abaixo como desvios de alto retorno. Sunreach e World Tree têm mapas próprios depois de liberados, portanto não aparecem na mesma escala do continente.</p></div>
+        </div>
+        <div class="world-map-grid">
+          <figure class="media-frame world-map reveal">
+            <img src="assets/mapa-palpagos-1-0.webp" alt="Mapa geral de Palpagos na versão 1.0 com Feybreak, Sunreach e regiões principais identificadas" width="1400" height="788" loading="lazy">
+            <figcaption><strong>Palpagos 1.0 em visão macro</strong><span>Imagem de referência do mapa do jogo. Use o mapa interno e as coordenadas para aproximação final. Sunreach é acessada pelo portal sobre a torre de Feybreak.</span></figcaption>
+          </figure>
+          <div class="map-index reveal" aria-label="Pontos prioritários do mapa">
+            <article class="map-pin"><span class="icon-box"><svg><use href="#i-base"/></svg></span><div><strong>Posto inicial de minério</strong><span>Base temporária até o Garimpo de Metais.</span></div><code>156, -394</code></article>
+            <article class="map-pin"><span class="icon-box"><svg><use href="#i-cave"/></svg></span><div><strong>Ruína com arma inicial</strong><span>Desvio para esquema melhor no começo.</span></div><code>49, -330</code></article>
+            <article class="map-pin"><span class="icon-box"><svg><use href="#i-gun"/></svg></span><div><strong>Esquema de Pistola</strong><span>Salto de categoria antes do meio do jogo.</span></div><code>-700, -686</code></article>
+            <article class="map-pin"><span class="icon-box"><svg><use href="#i-shield"/></svg></span><div><strong>Roupa térmica</strong><span>Proteção prática para calor e frio.</span></div><code>606, 304</code></article>
+            <article class="map-pin"><span class="icon-box"><svg><use href="#i-star"/></svg></span><div><strong>Growth Acceleration Bell</strong><span>Aumenta a experiência dos Pals do grupo.</span></div><code>-24, -94</code></article>
+            <article class="map-pin"><span class="icon-box"><svg><use href="#i-eye"/></svg></span><div><strong>Pal Tamer's Glasses</strong><span>IV e Clemência para captura controlada.</span></div><code>111, 18</code></article>
+            <article class="map-pin"><span class="icon-box"><svg><use href="#i-heart"/></svg></span><div><strong>Amuleto de reconhecimento</strong><span>Vida e resistência climática.</span></div><code>-818, -550</code></article>
+            <article class="map-pin"><span class="icon-box"><svg><use href="#i-route"/></svg></span><div><strong>Portal para Sunreach</strong><span>Derrote Bjorn e Bastigor em Feybreak.</span></div><code>-1294, -1669</code></article>
+          </div>
+        </div>
+        <div class="notice reveal" style="margin-top:24px"><strong>Precisão:</strong> os três primeiros pontos e os quatro acessórios vêm de demonstrações em vídeo da versão 1.0. A torre de Feybreak foi cruzada com guia pós-lançamento. Se um patch mover loot fixo, o mapa do jogo vence este documento.</div>
+      </div>
+    </section>
+
     <section id="tecnologia">
       <div class="shell">
         <div class="section-head reveal">
-          <div class="section-index">06 / TECNOLOGIA</div>
+          <div class="section-index">08 / TECNOLOGIA</div>
           <div><h2>Compre tempo. Depois compre poder.</h2><p class="section-intro">Pontos são mais apertados no momento em que você menos entende o que vale. Esta lista cobre os marcos que alteram a progressão. Cosméticos, defesa pesada e Pal Gear sem uso ficam para depois.</p></div>
         </div>
         <div class="table-wrap reveal">
@@ -813,7 +970,7 @@
     <section id="operacao">
       <div class="shell">
         <div class="section-head reveal">
-          <div class="section-index">07 / PALS E COMBATE</div>
+          <div class="section-index">09 / PALS E COMBATE</div>
           <div><h2>Escolha a função. Depois escolha o Pal.</h2><p class="section-intro">Raridade não substitui trabalho, habilidade de parceiro ou status. Abaixo está a ordem real de captura, melhoria e montagem do grupo.</p></div>
         </div>
         <div class="table-wrap reveal">
@@ -843,6 +1000,38 @@
           <article class="operation-card"><h3><svg><use href="#i-pal"/></svg>Apoios de base</h3><ul><li>Braloha acelera a produção de ovos na Fazenda de Acasalamento.</li><li>Shroomer Noct reduz a perda de SAN dos trabalhadores.</li><li>Clovee adiciona +1 de Coleta aos outros Pals da base.</li><li>Eikthyrdeer Terra adiciona +1 de Extração de Madeira.</li><li>Efeitos iguais não acumulam. Um slot bem escolhido basta.</li></ul></article>
           <article class="operation-card"><h3><svg><use href="#i-star"/></svg>Captura por fase</h3><ul><li>1 a 15: Vixy, Pupperai, Nitewing, Tombat e Arsox.</li><li>16 a 30: Penking, Azurobe, Lunaris, Digtoise, Beegarde e Mozzarina.</li><li>31 a 50: Anubis, Jormuntide, Orserk, Lyleen e Shroomer Noct.</li><li>51 a 65: Bastigor, Splatterina, Neptilius, Sekhmet e Braloha.</li><li>66 a 80: capture por função do time final, não por coleção.</li></ul></article>
         </div>
+        <h3 class="reveal" style="margin:48px 0 18px;font-size:1.55rem">Acessórios por missão</h3>
+        <div class="loadout-shell reveal">
+          <div class="loadout-tabs" role="tablist" aria-label="Loadouts de acessórios">
+            <button class="loadout-tab" type="button" role="tab" id="tab-explorar" aria-controls="loadout-explorar" aria-selected="true" data-loadout-tab="explorar">Exploração</button>
+            <button class="loadout-tab" type="button" role="tab" id="tab-capturar" aria-controls="loadout-capturar" aria-selected="false" data-loadout-tab="capturar">Captura</button>
+            <button class="loadout-tab" type="button" role="tab" id="tab-chefe" aria-controls="loadout-chefe" aria-selected="false" data-loadout-tab="chefe">Chefe</button>
+          </div>
+          <div class="loadout-panel" id="loadout-explorar" role="tabpanel" aria-labelledby="tab-explorar" data-loadout-panel="explorar">
+            <div class="loadout-title"><div class="atlas-icon"><svg><use href="#i-map"/></svg></div><h3>Explorador</h3><p>Conforto que reduz retorno à base e abre terreno difícil sem sacrificar todos os slots.</p></div>
+            <div class="accessory-list">
+              <div class="accessory-row"><svg><use href="#i-weight"/></svg><div><strong>Wandering Merchant Charm</strong><span>Carga e resistência climática para expedições longas.</span></div></div>
+              <div class="accessory-row"><svg><use href="#i-boot"/></svg><div><strong>Air Walker</strong><span>Pulos e dashes aéreos para ruínas, Sunreach e arenas verticais.</span></div></div>
+              <div class="accessory-row"><svg><use href="#i-shield"/></svg><div><strong>Roupa térmica</strong><span>Fecha calor e frio quando a armadura principal precisa priorizar defesa.</span></div></div>
+            </div>
+          </div>
+          <div class="loadout-panel" id="loadout-capturar" role="tabpanel" aria-labelledby="tab-capturar" data-loadout-panel="capturar" hidden>
+            <div class="loadout-title"><div class="atlas-icon"><svg><use href="#i-eye"/></svg></div><h3>Capturador</h3><p>Informação, Clemência e mobilidade. Dano bruto demais costuma converter captura rara em loot comum.</p></div>
+            <div class="accessory-list">
+              <div class="accessory-row"><svg><use href="#i-eye"/></svg><div><strong>Pal Tamer's Glasses</strong><span>Mostra IV e adiciona Clemência para preservar o alvo com 1 de Vida.</span></div></div>
+              <div class="accessory-row"><svg><use href="#i-speed"/></svg><div><strong>Phantom Ring</strong><span>Aumenta a janela de invencibilidade das esquivas.</span></div></div>
+              <div class="accessory-row"><svg><use href="#i-pal"/></svg><div><strong>Growth Acceleration Bell</strong><span>Use depois da captura para acelerar o novo Pal sem trocar a rota inteira.</span></div></div>
+            </div>
+          </div>
+          <div class="loadout-panel" id="loadout-chefe" role="tabpanel" aria-labelledby="tab-chefe" data-loadout-panel="chefe" hidden>
+            <div class="loadout-title"><div class="atlas-icon"><svg><use href="#i-sword"/></svg></div><h3>Caçador de chefes</h3><p>Monte o kit depois de escolher o dano principal. Elemento errado bem equipado continua sendo elemento errado.</p></div>
+            <div class="accessory-list">
+              <div class="accessory-row"><svg><use href="#i-sword"/></svg><div><strong>Dogen Emblem</strong><span>Ataque geral para jogador e Pal quando a luta não pede especialização extrema.</span></div></div>
+              <div class="accessory-row"><svg><use href="#i-bolt"/></svg><div><strong>Bastão elemental</strong><span>Aumenta ataque do Pal e o dano do elemento usado pela rotação.</span></div></div>
+              <div class="accessory-row"><svg><use href="#i-heart"/></svg><div><strong>Cinto ou talismã defensivo</strong><span>Vida e Defesa quando sobreviver aumenta mais o dano total que outro bônus ofensivo.</span></div></div>
+            </div>
+          </div>
+        </div>
         <h3 class="reveal" style="margin:48px 0 18px;font-size:1.55rem">Composição de combate que funciona</h3>
         <div class="role-grid reveal" aria-label="Composição recomendada do grupo">
           <article class="role-card"><span class="role-number">SLOT 01</span><h3>Aplicador</h3><p>Abre com Burn, Soak, Freeze, Ivy-Covered, Poison, Muddy, Electrified ou Blind.</p></article>
@@ -870,7 +1059,7 @@
     <section id="atlas">
       <div class="shell">
         <div class="section-head reveal">
-          <div class="section-index">08 / ATLAS OPERACIONAL</div>
+          <div class="section-index">10 / ATLAS OPERACIONAL</div>
           <div><h2>O que buscar e por quê.</h2><p class="section-intro">A Palpedia completa foi destilada em decisões de rota. O Atlas mostra os Pals, recursos e sistemas que mudam o ritmo do save.</p></div>
         </div>
         <div class="filters" aria-label="Filtrar atlas">
@@ -909,7 +1098,7 @@
     <section id="checklist">
       <div class="shell">
         <div class="section-head reveal">
-          <div class="section-index">09 / CHECKLIST</div>
+          <div class="section-index">11 / CHECKLIST</div>
           <div><h2>Seu save, em fatos.</h2><p class="section-intro">Marque somente o que está feito. O progresso fica salvo neste navegador. A porcentagem não mede habilidade, mede o quanto da infraestrutura crítica já deixou de depender da sua memória.</p></div>
         </div>
         <div class="check-shell">
@@ -927,6 +1116,7 @@
               <label class="check-item"><input type="checkbox" data-check="zoe"><span>Zoe e Grizzbolt derrotados</span></label>
               <label class="check-item"><input type="checkbox" data-check="flight"><span>Nitewing ou outra montaria aérea ativa</span></label>
               <label class="check-item"><input type="checkbox" data-check="stats-baseline"><span>Peso e Stamina já não interrompem rotas curtas</span></label>
+              <label class="check-item"><input type="checkbox" data-check="first-dungeon"><span>Primeira dungeon concluída e entradas futuras marcadas</span></label>
             </div>
             <div class="check-group"><h3>Indústria</h3>
               <label class="check-item"><input type="checkbox" data-check="ore"><span>Ore e ingots automatizados</span></label>
@@ -934,6 +1124,7 @@
               <label class="check-item"><input type="checkbox" data-check="assembly"><span>Linhas de produção e energia estáveis</span></label>
               <label class="check-item"><input type="checkbox" data-check="three-bases"><span>Três bases com função definida</span></label>
               <label class="check-item"><input type="checkbox" data-check="specialists"><span>Trabalhadores especialistas substituíram os generalistas principais</span></label>
+              <label class="check-item"><input type="checkbox" data-check="weapon-ladder"><span>Arma atual pertence à faixa correta, sem farm de raridade vencida</span></label>
             </div>
             <div class="check-group"><h3>Endgame inicial</h3>
               <label class="check-item"><input type="checkbox" data-check="oil"><span>Óleo cru, Plastiaço e Computador em produção</span></label>
@@ -941,12 +1132,14 @@
               <label class="check-item"><input type="checkbox" data-check="feybreak"><span>Bjorn e Bastigor derrotados</span></label>
               <label class="check-item"><input type="checkbox" data-check="sunreach"><span>Sunreach liberada e seis terminais desativados</span></label>
               <label class="check-item"><input type="checkbox" data-check="combat-roles"><span>Grupo possui dano, suporte, mobilidade e slot flexível definidos</span></label>
+              <label class="check-item"><input type="checkbox" data-check="vegetable-cake"><span>Bolo de Verduras produzindo dois ovos por ciclo</span></label>
             </div>
             <div class="check-group"><h3>World Tree</h3>
               <label class="check-item"><input type="checkbox" data-check="auri"><span>Auri e Shaolong derrotados</span></label>
               <label class="check-item"><input type="checkbox" data-check="panthalus"><span>Panthalus capturado e World Tree aberto</span></label>
               <label class="check-item"><input type="checkbox" data-check="ancient"><span>Ancient Furnace e Ancient Workbench ativos</span></label>
               <label class="check-item"><input type="checkbox" data-check="final"><span>Zenara e Astralym derrotados</span></label>
+              <label class="check-item"><input type="checkbox" data-check="final-loadout"><span>Loadout de chefe e linhagem final definidos</span></label>
             </div>
           </div>
         </div>
@@ -956,12 +1149,13 @@
     <section id="fontes">
       <div class="shell">
         <div class="section-head reveal">
-          <div class="section-index">10 / FUNDAMENTAÇÃO</div>
+          <div class="section-index">12 / FUNDAMENTAÇÃO</div>
           <div><h2>Os vídeos viraram conteúdo. Aqui ficam apenas as fontes.</h2><p class="section-intro">Marcos de tecnologia foram conferidos em base atualizada. Os vídeos alimentaram as rotas de recursos, coordenadas, esquemas, trabalhadores, Fazenda de Criação, captura e combate. Imagens promocionais vêm do kit oficial. Ícones individuais são assets da interface do jogo, mapeados pelas tabelas internas e obtidos por espelhos públicos identificados.</p></div>
         </div>
         <div class="source-grid reveal">
           <a class="source" href="https://store.steampowered.com/news/app/1623730/view/686383649529010623" target="_blank" rel="noopener noreferrer"><strong>Changelog oficial Palworld 1.0</strong><span>Pocketpair, 10/07/2026. Áreas, cap 80, 72 Pals, captura, story, bases, Awakening e Mutation.</span></a>
           <a class="source" href="https://paldb.cc/en/Technologies" target="_blank" rel="noopener noreferrer"><strong>PalDB Technologies v1.0.0</strong><span>Níveis e marcos da árvore de tecnologia, do Palbox ao Wing Pack.</span></a>
+          <a class="source" href="https://paldb.cc/en/v1.0.0" target="_blank" rel="noopener noreferrer"><strong>PalDB: sistemas da versão 1.0</strong><span>Bolos, Mutação, Condenser, acessórios, esquemas e passivas novas.</span></a>
           <a class="source" href="https://paldb.cc/pt/" target="_blank" rel="noopener noreferrer"><strong>PalDB em português</strong><span>Localização PT-BR de tecnologias, recursos, elementos e aptidões do jogo.</span></a>
           <a class="source" href="https://paldb.cc/pt/Passive_Skills" target="_blank" rel="noopener noreferrer"><strong>PalDB Habilidades Passivas</strong><span>Percentuais de Velocidade de Trabalho, trabalho noturno e passivas da Árvore do Mundo.</span></a>
           <a class="source" href="https://drive.google.com/drive/folders/1bULxKwZpF5Up4OJ85876lBJ14YrrK1gy?usp=drive_link" target="_blank" rel="noopener noreferrer"><strong>Press kit oficial da Pocketpair</strong><span>Materiais promocionais oficiais e referência visual da marca Palworld.</span></a>
@@ -978,6 +1172,11 @@
           <a href="https://www.youtube.com/watch?v=OZU3ACE_lXc" target="_blank" rel="noopener noreferrer">Times e status</a>
           <a href="https://www.youtube.com/watch?v=1z8qp1jAY4U" target="_blank" rel="noopener noreferrer">Palpedia e habitats</a>
           <a href="https://www.youtube.com/watch?v=c8wiHtmOwr8" target="_blank" rel="noopener noreferrer">Dicas práticas da versão 1.0</a>
+          <a href="https://www.youtube.com/watch?v=CMIyEpAG8v8" target="_blank" rel="noopener noreferrer">Primeiras horas e exploração</a>
+          <a href="https://www.youtube.com/watch?v=MUTjd-Z8a1o" target="_blank" rel="noopener noreferrer">Progressão de esquemas</a>
+          <a href="https://www.youtube.com/watch?v=7w01li64UnE" target="_blank" rel="noopener noreferrer">Breeding após o 1.0</a>
+          <a href="https://www.youtube.com/watch?v=SpIuk3RfM7c" target="_blank" rel="noopener noreferrer">Acessórios e localizações</a>
+          <a href="https://www.youtube.com/watch?v=4U1m-wxT5QM" target="_blank" rel="noopener noreferrer">Treino pós-campanha</a>
         </div></div></details>
         <div style="margin-top:36px" class="reveal">
           <details><summary>O que mudou em 1.0 e quebra guias antigos?</summary><div class="details-body">O cap agora é 80. O bônus de captura caiu de doze para cinco capturas. Work Suitability foi expandido para dez níveis. Há nove torres, Sunreach, World Tree, Awakening, Mutation, novas áreas, habitats reorganizados e uma história principal refeita. Se um guia ainda manda capturar doze de cada espécie ou termina no nível 65, ele não está descrevendo este jogo.</div></details>
@@ -989,7 +1188,7 @@
   </main>
 
   <footer>
-    <div class="shell footer-inner"><span>Atlas de Palpagos · guia pessoal para Palworld 1.0</span><span>Pesquisa e revisão: 17/07/2026 · arte e diagramas originais</span></div>
+    <div class="shell footer-inner"><span>Atlas de Palpagos · guia pessoal para Palworld 1.0</span><span>Pesquisa e revisão: 20/07/2026 · arte, mapas e diagramas documentados</span></div>
   </footer>
 
   <script>
@@ -1059,6 +1258,18 @@
           const filter = button.dataset.atlasFilter;
           document.querySelectorAll('[data-atlas]').forEach(card => {
             card.hidden = filter !== 'all' && card.dataset.atlas !== filter;
+          });
+        });
+      });
+
+      document.querySelectorAll('[data-loadout-tab]').forEach(button => {
+        button.addEventListener('click', () => {
+          const selected = button.dataset.loadoutTab;
+          document.querySelectorAll('[data-loadout-tab]').forEach(tab => {
+            tab.setAttribute('aria-selected', String(tab === button));
+          });
+          document.querySelectorAll('[data-loadout-panel]').forEach(panel => {
+            panel.hidden = panel.dataset.loadoutPanel !== selected;
           });
         });
       });
