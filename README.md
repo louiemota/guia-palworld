@@ -42,15 +42,20 @@ Validado inicialmente em 14/07/2026 e revisado em 21/07/2026. A versão elevou o
 - escada de armas e armaduras por faixa de nível;
 - nove torres com preparação e testes de prontidão;
 - economia por faixa de nível, reservas recomendadas e Ranch por material;
-- reprodução com três bolos, ovos mutantes e Condensador reduzido a 48 Pals;
+- reprodução com os cinco bolos da versão 1.0, ovos mutantes, Incubadora Antiga e Condensador reduzido a 48 cópias;
 - arquitetura radial, coordenadas e funções das quatro bases;
 - tecnologias prioritárias por faixa de nível;
 - composição de combate por status, rotação e cinco funções;
 - loadouts de exploração, captura e chefe;
 - mapa macro, uma captura de campo e oito coordenadas úteis;
 - trabalhadores por aptidão, passivas, buffers e ordem de melhoria;
+- progressão de trabalhadores do nível 1 ao 80, com aquisição por fase e critérios de substituição;
 - composição final de 15 trabalhadores usando quatro espécies e cobertura dos 11 trabalhos gerais da base;
+- rotas de captura, ovos e breeding para os quatro trabalhadores da composição final;
 - progressão de Pals de combate por passivas, IV, condensação, almas, Despertar e Confiança;
+- materiais, nível, ordem de investimento e limite de uso do Despertar;
+- quatro Efígies de Lunaris com coordenadas e melhoria de rastreamento de Esferas;
+- construção compacta de plantações, armazenamento, camas, garimpos e linhas de produção;
 - glitch de duplicação documentado como atalho opcional e dependente de patch;
 - rota de reprodução do acesso antecipado verificada e marcada como inválida na versão 1.0;
 - ícones do próprio Paldeck, aptidões e elementos;
@@ -87,6 +92,17 @@ Nomes aparecem em inglês quando a localização PT-BR ainda não foi confirmada
 - [CKX: progressão de Pals de combate na versão 1.0](https://www.youtube.com/watch?v=UdBGBXNZStQ)
 - [Jaycerr: rota antiga de breeding, invalidada no 1.0](https://www.youtube.com/shorts/1ahpaE1txBw)
 - [Recapitulate: progressão de armas e economia de munição](https://www.youtube.com/shorts/c0DwPaepwbk)
+- [Mobalytics: melhores Pals do início da versão 1.0](https://mobalytics.gg/news/guides/palworld-early-game-pals)
+- [PalDB: Dualith Noct](https://paldb.cc/en/Dualith_Noct)
+- [PalDB: Dupin](https://paldb.cc/en/Dupin)
+- [PalDB: Solmora Lux](https://paldb.cc/en/Solmora_Lux)
+- [PalDB: Whalaska Ignis](https://paldb.cc/en/Whalaska_Ignis)
+- [PalDB: Mesa de Operação](https://paldb.cc/en/Pal_Surgery_Table)
+- [PalDB: Incubadora Antiga](https://paldb.cc/en/Ancient_Hatchery)
+- [Le Sparks: guia completo de breeding 1.0](https://www.youtube.com/watch?v=f3MCAk077Nk)
+- [Sparda: Despertar na versão 1.0](https://www.youtube.com/watch?v=rRiGb9CnbXU)
+- [Noob sem Planos: estruturas empilhadas](https://www.youtube.com/watch?v=E9vdgzxTNq8)
+- [Misleading: Efígies de Lunaris](https://www.youtube.com/shorts/2xPEOlF2hLo)
 
 ## Arte
 
