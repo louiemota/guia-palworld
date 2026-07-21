@@ -32,7 +32,7 @@ Abra `index.html` no navegador. Não há build, dependências ou conexão obriga
 
 ## Estado da pesquisa
 
-Validado inicialmente em 14/07/2026 e revisado em 20/07/2026. A versão elevou o cap para 80, adicionou 72 Pals, Sunreach, World Tree, Awakening, Mutation e refez sistemas de progressão.
+Validado inicialmente em 14/07/2026 e revisado em 21/07/2026. A versão elevou o cap para 80, adicionou 72 Pals, Sunreach, World Tree, Awakening, Mutation e refez sistemas de progressão.
 
 ## Cobertura operacional
 
@@ -49,6 +49,10 @@ Validado inicialmente em 14/07/2026 e revisado em 20/07/2026. A versão elevou o
 - loadouts de exploração, captura e chefe;
 - mapa macro, uma captura de campo e oito coordenadas úteis;
 - trabalhadores por aptidão, passivas, buffers e ordem de melhoria;
+- composição final de 15 trabalhadores usando quatro espécies e cobertura dos 11 trabalhos gerais da base;
+- progressão de Pals de combate por passivas, IV, condensação, almas, Despertar e Confiança;
+- glitch de duplicação documentado como atalho opcional e dependente de patch;
+- rota de reprodução do acesso antecipado verificada e marcada como inválida na versão 1.0;
 - ícones do próprio Paldeck, aptidões e elementos;
 - nomes de tecnologias e recursos localizados em PT-BR;
 - atlas curto de Pals, recursos e sistemas;
@@ -78,6 +82,11 @@ Nomes aparecem em inglês quando a localização PT-BR ainda não foi confirmada
 - [CKX: reprodução após o 1.0](https://www.youtube.com/watch?v=7w01li64UnE)
 - [CKX: acessórios e localizações](https://www.youtube.com/watch?v=SpIuk3RfM7c)
 - [Sparda: treino pós-campanha](https://www.youtube.com/watch?v=4U1m-wxT5QM)
+- [Kybuza: quatro espécies para uma base final](https://www.youtube.com/watch?v=YtKhdV1l4r4)
+- [Alecthor: duplicação por colisão na versão 1.0](https://www.youtube.com/watch?v=Eczz7b3vHVk)
+- [CKX: progressão de Pals de combate na versão 1.0](https://www.youtube.com/watch?v=UdBGBXNZStQ)
+- [Jaycerr: rota antiga de breeding, invalidada no 1.0](https://www.youtube.com/shorts/1ahpaE1txBw)
+- [Recapitulate: progressão de armas e economia de munição](https://www.youtube.com/shorts/c0DwPaepwbk)
 
 ## Arte
 
