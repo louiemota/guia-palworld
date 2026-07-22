@@ -32,7 +32,7 @@ Abra `index.html` no navegador. Não há build, dependências ou conexão obriga
 
 ## Estado da pesquisa
 
-Validado inicialmente em 14/07/2026 e revisado em 21/07/2026. A versão elevou o cap para 80, adicionou 72 Pals, Sunreach, World Tree, Awakening, Mutation e refez sistemas de progressão.
+Validado inicialmente em 14/07/2026 e revisado em 22/07/2026. A versão elevou o cap para 80, adicionou 72 Pals, Sunreach, World Tree, Awakening, Mutation e refez sistemas de progressão.
 
 ## Cobertura operacional
 
@@ -40,14 +40,17 @@ Validado inicialmente em 14/07/2026 e revisado em 21/07/2026. A versão elevou o
 - roteiro das duas primeiras horas, com captura em lotes, masmorras e pesca;
 - rota progressiva do nível 1 ao 80;
 - escada de armas e armaduras por faixa de nível;
+- rota da masmorra de Terraria e funções práticas de Nightglow, Terraprisma, Terra Blade, Excalibur e Meowmere;
 - nove torres com preparação e testes de prontidão;
 - economia por faixa de nível, reservas recomendadas e Ranch por material;
 - reprodução com os cinco bolos da versão 1.0, ovos mutantes, Incubadora Antiga e Condensador reduzido a 48 cópias;
 - arquitetura radial, coordenadas e funções das quatro bases;
+- Baú de Guilda, armazenamento compartilhado, laboratórios paralelos, expedições e atribuição de tarefas;
 - tecnologias prioritárias por faixa de nível;
 - composição de combate por status, rotação e cinco funções;
 - loadouts de exploração, captura e chefe;
 - mapa macro, uma captura de campo e oito coordenadas úteis;
+- pesca por fase com Gloopie, vara, isca, Fishing Magnets e pontos avançados;
 - trabalhadores por aptidão, passivas, buffers e ordem de melhoria;
 - progressão de trabalhadores do nível 1 ao 80, com aquisição por fase e critérios de substituição;
 - composição final de 15 trabalhadores usando quatro espécies e cobertura dos 11 trabalhos gerais da base;
@@ -99,10 +102,20 @@ Nomes aparecem em inglês quando a localização PT-BR ainda não foi confirmada
 - [PalDB: Whalaska Ignis](https://paldb.cc/en/Whalaska_Ignis)
 - [PalDB: Mesa de Operação](https://paldb.cc/en/Pal_Surgery_Table)
 - [PalDB: Incubadora Antiga](https://paldb.cc/en/Ancient_Hatchery)
+- [PalDB: Gloopie](https://paldb.cc/en/Gloopie)
+- [PalDB: Tides of Terraria](https://paldb.cc/en/Tides_of_Terraria)
+- [PalDB: Baú de Guilda](https://paldb.cc/Guild_Chest)
+- [Palworld Wiki: Laboratório de Pesquisa](https://palworld.wiki.gg/wiki/Pal_Labor_Research_Laboratory)
 - [Le Sparks: guia completo de breeding 1.0](https://www.youtube.com/watch?v=f3MCAk077Nk)
 - [Sparda: Despertar na versão 1.0](https://www.youtube.com/watch?v=rRiGb9CnbXU)
 - [Noob sem Planos: estruturas empilhadas](https://www.youtube.com/watch?v=E9vdgzxTNq8)
 - [Misleading: Efígies de Lunaris](https://www.youtube.com/shorts/2xPEOlF2hLo)
+- [Recapitulate: cinco atalhos de qualidade de vida](https://www.youtube.com/shorts/DO-XhP6Bujs)
+- [Aiming4Gaming: segredos de Tides of Terraria](https://www.youtube.com/shorts/O2QpSxE4SLs)
+- [Misleading: pesca com Gloopie](https://www.youtube.com/shorts/DAIT5x8K7Qs)
+- [Apollo Play: armas da masmorra de Terraria](https://www.youtube.com/watch?v=WfI05Xg0Kx4)
+- [Aiming4Gaming: sistemas pouco explicados](https://www.youtube.com/shorts/sBC0lfI2tLI)
+- [Gaubss: guia definitivo para iniciantes](https://www.youtube.com/watch?v=f-Re5yAlIEc)
 
 ## Arte
 
